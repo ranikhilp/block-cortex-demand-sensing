@@ -1,5 +1,6 @@
 view: anl_costbkng {
   sql_table_name: `sap-cortex-391114.SAP_CDC_PROCESSED_FP.anl_cost-bkng` ;;
+  label: "analytics cost booking"
 
   dimension: agrmnt_num {
     type: string

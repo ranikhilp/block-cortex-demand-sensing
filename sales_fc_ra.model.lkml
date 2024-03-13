@@ -15,6 +15,11 @@ explore: anl_costbkng {
     type: inner
     sql_on: ${anl_costbkng.matl_id} = ${ra_gds_datamatl.matl_id} ;;
   }
+  join: anl_ra_gdsmatl_plant {
+    relationship: many_to_one
+    type: inner
+    sql_on: ${anl_ra_gdsmatl_plant.matl_id} = ${anl_costbkng.matl_id} ;;
+  }
 }
 
 
