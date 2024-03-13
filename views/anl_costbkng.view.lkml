@@ -138,6 +138,7 @@ view: anl_costbkng {
     sql: ${TABLE}.itm_nbr ;;
   }
   dimension: itm_open_qty {
+    label: "Open Quantity In Sales Unit Of Measure"
     type: number
     sql: ${TABLE}.itm_open_qty ;;
   }
