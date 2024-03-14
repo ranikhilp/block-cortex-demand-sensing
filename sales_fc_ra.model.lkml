@@ -21,6 +21,12 @@ explore: anl_costbkng {
     type: inner
     sql_on: ${anl_ra_gdsmatl_plant.matl_id} = ${anl_costbkng.matl_id} ;;
   }
+  join: anl_busi_lgstcsoutbound_deliveries {
+    relationship: many_to_many
+    type: inner
+    sql_on: ${anl_busi_lgstcsoutbound_deliveries.ref_doc_id} = ${anl_costbkng.doc_id}
+           and ${anl_costbkng.itm_nbr} = ${anl_busi_lgstcsoutbound_deliveries.ref_doc_itm_no};;
+  }
 }
 
 
