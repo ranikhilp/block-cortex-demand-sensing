@@ -28,7 +28,6 @@ view: anl_costbkng {
     sql: ${TABLE}.cmtd_dlvry_dt ;;
   }
   dimension_group: cnfrmd_dlvry_dt {
-    label: "Confimed Delivery Date"
     type: time
     timeframes: [raw, time, date, week, month, quarter, year,fiscal_year, fiscal_quarter, fiscal_month_num, month_name]
     sql: ${TABLE}.cnfrmd_dlvry_dt ;;
@@ -139,7 +138,6 @@ view: anl_costbkng {
     sql: ${TABLE}.itm_nbr ;;
   }
   dimension: itm_open_qty {
-    label: "Open Quantity In Sales Unit Of Measure"
     type: number
     sql: ${TABLE}.itm_open_qty ;;
   }
