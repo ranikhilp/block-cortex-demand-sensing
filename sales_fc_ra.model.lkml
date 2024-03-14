@@ -10,7 +10,7 @@ include: "/views/*.view.lkml"                # include all views in the views/ f
 fiscal_month_offset: 9
 
 explore: anl_costbkng {
-  label: "Analytics Cost Booking"
+  label: "Shipment Forecast"
   join: ra_gds_datamatl {
     relationship: many_to_one
     type: inner
