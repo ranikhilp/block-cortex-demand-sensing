@@ -439,6 +439,47 @@ view: anl_costbkng {
     type: number
     sql: ${TABLE}.uom_mltplr_nmrtr ;;
   }
+
+  dimension: sls_region {
+    case: {
+      when: {
+        sql: substring(sls_org,1,1) in ('1','2') ;;
+        label: "NA"
+      }
+      when: {
+        sql: substring(sls_org,1,1) in ('3') ;;
+        label: "LA"
+      }
+      when: {
+        sql: substring(sls_org,1,1) in ('4') ;;
+        label: "EMEA"
+      }
+      when: {
+        sql: substring(sls_org,1,1) in ('5') ;;
+        label: "APAC"
+      }
+      when: {
+        sql: substring(sls_org,1,2) in ('71','72') ;;
+        label: "SENS_NA"
+      }
+      when: {
+        sql: substring(sls_org,1,2) in ('73') ;;
+        label: "SENS_LA"
+      }
+      when: {
+        sql: substring(sls_org,1,2) in ('74') ;;
+        label: "SENS_EMEA"
+      }
+      when: {
+        sql: substring(sls_org,1,2) in ('75') ;;
+        label: "SENS_APAC"
+      }
+      # Possibly more when statements
+      else: "other"
+    }
+    alpha_sort:  yes
+  }
+
   measure: count {
     type: count
   }
