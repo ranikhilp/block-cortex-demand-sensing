@@ -483,4 +483,17 @@ view: anl_costbkng {
   measure: count {
     type: count
   }
+
+  #calculate gross orders
+  measure: is_m_val_country {
+    description: "Is Country Turkey or Argentina?"
+    type: yesno
+    sql: ${trans_crncy_cd} IN ('TRY', 'ARS') ;;
+  }
+  measure: gross_orders {
+    type: number
+    sql: CASE WHEN ${is_m_val_country} THEN ${glbl_m_net_val} ELSE ${glbl_p_net_val} END ;;
+  }
+
+
 }
