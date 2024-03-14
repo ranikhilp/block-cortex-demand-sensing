@@ -24,13 +24,13 @@ view: anl_costbkng {
   }
   dimension_group: cmtd_dlvry_dt {
     type: time
-    timeframes: [raw, time, date, week, month, quarter, fiscal_quarter, month_name, year]
+    timeframes: [raw, time, date, week, month, quarter,  year]
     sql: ${TABLE}.cmtd_dlvry_dt ;;
   }
   dimension_group: cnfrmd_dlvry_dt {
     label: "Confimed Delivery Date"
     type: time
-    timeframes: [raw, time, date, week, month, quarter,fiscal_quarter, month_name, year]
+    timeframes: [raw, time, date, week, month, quarter, year,fiscal_year, fiscal_quarter, fiscal_month_num, month_name]
     sql: ${TABLE}.cnfrmd_dlvry_dt ;;
   }
   dimension: co_cd {

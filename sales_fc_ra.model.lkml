@@ -10,7 +10,7 @@ include: "/views/*.view.lkml"                # include all views in the views/ f
 fiscal_month_offset: 9
 
 explore: anl_costbkng {
-  label: "Analytics Cost Booking"
+  label: "Shipment Forecast "
   join: ra_gds_datamatl {
     relationship: many_to_one
     type: inner
@@ -20,6 +20,12 @@ explore: anl_costbkng {
     relationship: many_to_one
     type: inner
     sql_on: ${anl_ra_gdsmatl_plant.matl_id} = ${anl_costbkng.matl_id} ;;
+  }
+  join: anl_busi_lgstcsoutbound_deliveries {
+    relationship: many_to_many
+    type: inner
+    sql_on: ${anl_busi_lgstcsoutbound_deliveries.ref_doc_id} = ${anl_costbkng.doc_id}
+           and ${anl_costbkng.itm_nbr} = ${anl_busi_lgstcsoutbound_deliveries.ref_doc_itm_no};;
   }
 }
 

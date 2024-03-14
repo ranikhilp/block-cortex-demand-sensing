@@ -1,6 +1,6 @@
 view: anl_ra_gdsmatl_plant {
   sql_table_name: `sap-cortex-391114.SAP_CDC_PROCESSED_FP.anl_ra_gds-matl_plant` ;;
-
+  label: "Material Plants of different purchasing and sales Orgainzations"
   dimension: assy_part_scrp_pct {
     type: number
     sql: ${TABLE}.assy_part_scrp_pct ;;
