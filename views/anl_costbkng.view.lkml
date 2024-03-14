@@ -30,7 +30,7 @@ view: anl_costbkng {
   dimension_group: cnfrmd_dlvry_dt {
     label: "Confimed Delivery Date"
     type: time
-    timeframes: [raw, time, date, week, month, quarter, year]
+    timeframes: [raw, time, date, week, month, quarter,fiscal_quarter, month_name, year]
     sql: ${TABLE}.cnfrmd_dlvry_dt ;;
   }
   dimension: co_cd {
@@ -168,7 +168,7 @@ view: anl_costbkng {
   }
   dimension_group: matl_avail_req_dt {
     type: time
-    timeframes: [raw, time, date, week, month, quarter, year]
+    timeframes: [raw, time, date, week, month, quarter,fiscal_quarter,month_name, year]
     sql: ${TABLE}.matl_avail_req_dt ;;
   }
   dimension: matl_base_uom {
@@ -244,7 +244,7 @@ view: anl_costbkng {
   }
   dimension_group: ord_itm_plnd_goods_iss_dt {
     type: time
-    timeframes: [raw, time, date, week, month, quarter, year]
+    timeframes: [raw, time, date, week, month, quarter,fiscal_quarter, month_name, year]
     sql: ${TABLE}.ord_itm_plnd_goods_iss_dt ;;
   }
   dimension: ord_itm_rjctn_rsn_cd {
@@ -317,7 +317,7 @@ view: anl_costbkng {
   }
   dimension_group: reqstd_dlvry_dt {
     type: time
-    timeframes: [raw, time, date, week, month, quarter, year]
+    timeframes: [raw, time, date, week, month, quarter,fiscal_quarter, month_name, year]
     sql: ${TABLE}.reqstd_dlvry_dt ;;
   }
   dimension: sap_svc_contr_no {
@@ -382,7 +382,7 @@ view: anl_costbkng {
   }
   dimension_group: sls_ord_ln_itm_reqstd_dlvry_dte {
     type: time
-    timeframes: [raw, time, date, week, month, quarter, year]
+    timeframes: [raw, time, date, week, month, quarter,fiscal_quarter,month_name, year]
     sql: ${TABLE}.sls_ord_ln_itm_reqstd_dlvry_dte ;;
   }
   dimension: sls_org {
