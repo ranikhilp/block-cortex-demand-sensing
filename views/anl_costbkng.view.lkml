@@ -42,7 +42,7 @@ view: anl_costbkng {
   }
   dimension_group: creatd_dttm {
     type: time
-    timeframes: [raw, time, date, week, month, quarter, year]
+    timeframes: [raw, time, date, week, month, quarter,fiscal_quarter,month_name, year]
     sql: ${TABLE}.creatd_dttm ;;
   }
   dimension: cum_cnfrmd_qty {
@@ -505,10 +505,18 @@ view: anl_costbkng {
     sql: ${gross_orders} ;;
   }
 
+
   dimension: ord_conv_diff {
     type: number
     sql: ${gross_orders} - ${open_qty_glbl_m_net_val} ;;
   }
+
+  measure:  FY2024_Q2_orders{
+    type: sum
+    filters: [creatd_dttm_fiscal_quarter: "FY2024-Q2"]
+    sql: ${gross_orders} ;;
+  }
+
 
   measure: ord_conv_diff_sum{
     type: sum
