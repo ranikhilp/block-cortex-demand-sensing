@@ -505,5 +505,13 @@ view: anl_costbkng {
     sql: ${gross_orders} ;;
   }
 
+  dimension: ord_conv_diff {
+    type: number
+    sql: ${gross_orders} - ${open_qty_glbl_m_net_val} ;;
+  }
 
+  measure: ord_conv_diff_sum{
+    type: sum
+    sql: ${ord_conv_diff} ;;
+  }
 }
