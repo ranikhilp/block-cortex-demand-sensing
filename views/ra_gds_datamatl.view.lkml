@@ -206,6 +206,46 @@ view: ra_gds_datamatl {
     type: string
     sql: ${TABLE}.wt_uom ;;
   }
+
+  dimension: FBU {
+    case: {
+      when: {
+        sql: ${busi_unit_cd} in ('DIO','SCB') ;;
+        label: "DCB"
+      }
+      when: {
+        sql: ${busi_unit_cd} in ('CDS', 'IDB', 'SDB') ;;
+        label: "DST"
+      }
+      when: {
+        sql: ${busi_unit_cd} in ('EOI','ICB','PVC') ;;
+        label: "IPB"
+      }
+      when: {
+        sql: ${busi_unit_cd} in ('CLX', 'CMX','NET','SFS') ;;
+        label: "LGX"
+      }
+      when: {
+        sql: ${busi_unit_cd} in ('CLX', 'CMX','NET','SFS') ;;
+        label: "LGX"
+      }
+      when: {
+        sql: ${busi_unit_cd} in ('KNX','PMC') ;;
+        label: "MTC"
+      }
+      when: {
+        sql: ${busi_unit_cd} in ('CPB','GIA','MCP','PBS','SEN','SFC','SOP') ;;
+        label: "SIC"
+      }
+      when: {
+        sql: ${busi_unit_cd} in ('SLC') ;;
+        label: "SLC"
+      }
+      # Possibly more when statements
+      else: "other"
+    }
+    alpha_sort:  yes
+  }
   measure: count {
     type: count
   }
