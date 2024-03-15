@@ -505,7 +505,7 @@ view: anl_costbkng {
     sql: ${gross_orders} ;;
   }
 
-  measure:  FY2023_orders_sum{
+  measure:  FY2024_Q2_orders{
     type: sum
     filters: [creatd_dttm_fiscal_quarter: "FY2024-Q2"]
     sql: ${gross_orders} ;;
