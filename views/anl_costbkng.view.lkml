@@ -42,7 +42,7 @@ view: anl_costbkng {
   }
   dimension_group: creatd_dttm {
     type: time
-    timeframes: [raw, time, date, week, month, quarter, year]
+    timeframes: [raw, time, date, week, month, quarter,fiscal_quarter,month_name, year]
     sql: ${TABLE}.creatd_dttm ;;
   }
   dimension: cum_cnfrmd_qty {
