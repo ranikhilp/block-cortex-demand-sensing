@@ -27,17 +27,9 @@ explore: anl_costbkng {
     sql_on: ${anl_busi_lgstcsoutbound_deliveries.ref_doc_id} = ${anl_costbkng.doc_id}
            and ${anl_costbkng.itm_nbr} = ${anl_busi_lgstcsoutbound_deliveries.ref_doc_itm_no};;
   }
+  join: anl_ra_gdsdate_dim {
+    relationship: many_to_many
+    type: inner
+    sql_on: ${anl_ra_gdsdate_dim.date_dt_date} = ${anl_costbkng.sls_ord_ln_itm_reqstd_dlvry_dte_date};;
+  }
 }
-
-
-# explore: order_items {
-#   join: orders {
-#     relationship: many_to_one
-#     sql_on: ${orders.id} = ${order_items.order_id} ;;
-#   }
-#
-#   join: users {
-#     relationship: many_to_one
-#     sql_on: ${users.id} = ${orders.user_id} ;;
-#   }
-# }
