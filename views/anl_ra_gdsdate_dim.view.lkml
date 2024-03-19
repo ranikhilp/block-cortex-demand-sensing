@@ -1,5 +1,6 @@
 view: anl_ra_gdsdate_dim {
   sql_table_name: `sap-cortex-391114.SAP_CDC_PROCESSED_FP.anl_ra_gds-date_dim` ;;
+  label: "Date"
 
   dimension: cal_mth {
     type: number
