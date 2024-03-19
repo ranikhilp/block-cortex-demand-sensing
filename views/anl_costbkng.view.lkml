@@ -568,7 +568,7 @@ view: anl_costbkng {
   measure: conversion_rate{
     type: number
     value_format_name: percent_2
-    sql: ${Conversion_sum}/${gross_orders_sum}  ;;
+    sql: ${Conversion_sum}/nullif(${gross_orders_sum}, 0);;
   }
 
 
