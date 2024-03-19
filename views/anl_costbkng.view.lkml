@@ -485,16 +485,6 @@ view: anl_costbkng {
     sql: (SELECT CURRENT_TIMESTAMP) ;;
   }
 
-############################################################
-#############   Implementing Marks logic as is #############
-
-
-
-
-#############   Implementing Marks logic as is ##############
-#############################################################
-
-
 
 #calculate gross orders
   dimension: is_m_val_country {
@@ -570,6 +560,27 @@ view: anl_costbkng {
   measure: count {
     type: count
   }
+
+  # measure: conversion_rate{
+  #   type: percent_of_total
+  #   sql: ${Conversion_sum}/${gross_orders_sum}  ;;
+  # }
+  measure: conversion_rate{
+    type: number
+    value_format_name: percent_2
+    sql: ${Conversion_sum}/${gross_orders_sum}  ;;
+  }
+
+
+
+  ############################################################
+#############   Implementing Marks logic as is #############
+
+
+
+
+#############   Implementing Marks logic as is ##############
+#############################################################
 
 
 }
