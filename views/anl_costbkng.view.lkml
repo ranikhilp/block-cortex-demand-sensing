@@ -203,7 +203,7 @@ view: anl_costbkng {
   }
   dimension_group: ord_itm_creatd_dt {
     type: time
-    timeframes: [raw, time, date, week, month, quarter, year]
+    timeframes: [raw, time, date, week, month, quarter,fiscal_quarter,month_name, year]
     sql: ${TABLE}.ord_itm_creatd_dt ;;
   }
   dimension: ord_itm_dlvry_blkd_cd {
@@ -224,7 +224,7 @@ view: anl_costbkng {
   }
   dimension_group: ord_itm_lst_goods_iss_dt {
     type: time
-    timeframes: [raw, time, date, week, month, quarter, year]
+    timeframes: [raw, time, date, week, month, quarter,fiscal_quarter, month_name, year]
     sql: ${TABLE}.ord_itm_lst_goods_iss_dt ;;
   }
   dimension_group: ord_itm_matl_avail_dt {
@@ -474,15 +474,27 @@ view: anl_costbkng {
         sql: substring(sls_org,1,2) in ('75') ;;
         label: "SENS_APAC"
       }
-      # Possibly more when statements
       else: "other"
     }
     alpha_sort:  yes
   }
 
-  measure: count {
-    type: count
+  dimension: CurrentQTR {
+    description: "current quarter reference"
+    type:date_fiscal_quarter
+    sql: (SELECT CURRENT_TIMESTAMP) ;;
   }
+
+############################################################
+#############   Implementing Marks logic as is #############
+
+
+
+
+#############   Implementing Marks logic as is ##############
+#############################################################
+
+
 
 #calculate gross orders
   dimension: is_m_val_country {
@@ -490,16 +502,20 @@ view: anl_costbkng {
     type: yesno
     sql: ${trans_crncy_cd} IN ('TRY', 'ARS') ;;
   }
+
+  #original
+  # dimension: gross_orders {
+  #   type: number
+  #   sql: CASE WHEN ${is_m_val_country} THEN ${glbl_m_net_val} ELSE ${glbl_p_net_val} END ;;
+  # }
+
+  #for testing
   dimension: gross_orders {
     type: number
-    sql: CASE WHEN ${is_m_val_country} THEN ${glbl_m_net_val} ELSE ${glbl_p_net_val} END ;;
+    sql: CASE WHEN ${is_m_val_country} THEN ${glbl_m_net_val} ELSE ${glbl_m_net_val} END ;;
   }
+
   # calculate gross orders sum
-  # measure: is_m_val_country {
-  #   description: "Is Country Turkey or Argentina?"
-  #   type: yesno
-  #   sql: ${trans_crncy_cd} IN ('TRY', 'ARS') ;;
-  # }
   measure: gross_orders_sum{
     type: sum
     sql: ${gross_orders} ;;
@@ -515,4 +531,45 @@ view: anl_costbkng {
     type: sum
     sql: ${ord_conv_diff} ;;
   }
+
+
+
+  dimension: Conversion1 {
+    description: "Orders Conversion logic"
+    type: number
+    sql: (SELECT
+    CASE
+        WHEN ${CurrentQTR} >= ${creatd_dttm_fiscal_quarter} AND ${ord_itm_lst_goods_iss_dt_fiscal_quarter} = ${creatd_dttm_fiscal_quarter}
+        THEN ${gross_orders} - ${open_qty_glbl_m_net_val}
+        ELSE 0 END) ;;
+  }
+
+  dimension: Conversion2 {
+    description: "Orders Conversion logic"
+    type: number
+    sql: (SELECT
+          CASE
+              WHEN ${CurrentQTR} = ${creatd_dttm_fiscal_quarter} AND ${itm_open_qty} > 0 AND ${cnfrmd_dlvry_dt_fiscal_quarter} <= ${creatd_dttm_fiscal_quarter}
+              THEN ${open_qty_glbl_m_net_val}
+              ELSE 0 END) ;;
+  }
+
+    dimension: Conversion {
+    description: "Orders Conversion logic"
+    type: number
+    sql: ${Conversion1}+${Conversion2} ;;
+  }
+
+  #My changes for current quarter assumptions
+# calculate conversion sum
+  measure: Conversion_sum{
+    type: sum
+    sql: ${Conversion} ;;
+  }
+
+  measure: count {
+    type: count
+  }
+
+
 }
