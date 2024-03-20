@@ -32,4 +32,12 @@ explore: anl_costbkng {
     type: inner
     sql_on: ${anl_ra_gdsdate_dim.date_dt_date} = ${anl_costbkng.sls_ord_ln_itm_reqstd_dlvry_dte_date};;
   }
+
+  #INTERCOMPANY FILTER
+  always_filter: {
+    filters: [anl_costbkng.sls_doc_type: "-ZEOR,- ZPLS, -ZIPO",
+      anl_costbkng.sched_line_cat: "CP , CN , ZN",anl_costbkng.plt_cd: "-8% , -9%",
+      anl_costbkng.itm_rjctn_stat:"null , EMPTY , A , B"]
+  }
+
 }
