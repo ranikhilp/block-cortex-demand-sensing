@@ -32,7 +32,18 @@ explore: anl_costbkng {
     type: inner
     sql_on: ${anl_ra_gdsdate_dim.date_dt_date} = ${anl_costbkng.sls_ord_ln_itm_reqstd_dlvry_dte_date};;
   }
-
+  join: gross_orders_manual {
+    relationship: many_to_many
+    type: inner
+    sql_on: ${ra_gds_datamatl.FBU} = ${gross_orders_manual.bu}
+    and ${anl_costbkng.sls_region} = ${gross_orders_manual.region};;
+  }
+  join: sfsac_manual {
+    relationship: many_to_many
+    type: inner
+    sql_on: ${ra_gds_datamatl.FBU} = ${sfsac_manual.bu}
+      and ${anl_costbkng.sls_region} = ${sfsac_manual.region};;
+  }
   #INTERCOMPANY FILTER
   always_filter: {
     filters: [anl_costbkng.sls_doc_type: "-ZEOR,- ZPLS, -ZIPO",
