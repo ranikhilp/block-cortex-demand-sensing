@@ -108,6 +108,7 @@ view: gross_orders_manual {
     sql: ${TABLE}.region ;;
   }
   dimension: string_field_25 {
+    hidden: yes
     type: string
     sql: ${TABLE}.string_field_25 ;;
   }

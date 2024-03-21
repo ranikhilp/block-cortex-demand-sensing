@@ -104,10 +104,12 @@ view: sfsac_manual {
     sql: ${TABLE}.region ;;
   }
   dimension: string_field_25 {
+    hidden: yes
     type: string
     sql: ${TABLE}.string_field_25 ;;
   }
   dimension: string_field_26 {
+    hidden: yes
     type: string
     sql: ${TABLE}.string_field_26 ;;
   }
