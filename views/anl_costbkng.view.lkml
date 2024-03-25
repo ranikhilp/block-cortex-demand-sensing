@@ -571,10 +571,10 @@ view: anl_costbkng {
     sql: ${Conversion_sum}/nullif(${gross_orders_sum}, 0);;
   }
 
-#Net Backlog
-  measure: net_backlog{
-    type: number
-    sql: ${open_qty_glbl_m_net_val} - ${sfsac_manual.sfsac_manual};;
+#Gross Backlog
+  measure: gross_backlog{
+    type: sum
+    sql: ${open_qty_glbl_m_net_val} ;;
   }
 
 

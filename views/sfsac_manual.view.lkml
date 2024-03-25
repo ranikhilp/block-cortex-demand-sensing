@@ -18,7 +18,9 @@ view: sfsac_manual {
     type: number
     sql: ${TABLE}.SFSAC_manual ;;
   }
-  measure: count {
-    type: count
+#sfsac total
+  measure: SFSAC_sum{
+    type: sum
+    sql: ${sfsac_manual} ;;
   }
 }
