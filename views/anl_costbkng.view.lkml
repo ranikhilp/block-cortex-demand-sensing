@@ -574,7 +574,7 @@ view: anl_costbkng {
 #Net Backlog
   measure: net_backlog{
     type: number
-    sql: ${open_qty_glbl_m_net_val};;
+    sql: ${open_qty_glbl_m_net_val} - ${sfsac_manual.sfsac_manual};;
   }
 
 
