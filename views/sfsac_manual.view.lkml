@@ -7,6 +7,7 @@ view: sfsac_manual {
   }
   dimension: qtr {
     type: string
+
     sql: ${TABLE}.QTR ;;
   }
   dimension: region {
