@@ -2,7 +2,7 @@ view: sfsac_manual {
   sql_table_name: `sap-cortex-391114.SAP_CDC_PROCESSED_FP.SFSAC_manual` ;;
 
   dimension: bu {
-    primary_key: yes
+    # primary_key: yes
     type: string
     sql: ${TABLE}.bu ;;
   }
