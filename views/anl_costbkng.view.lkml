@@ -16,6 +16,7 @@ view: anl_costbkng {
   }
   dimension: busi_unit {
     type: string
+    # primary_key: yes
     sql: ${TABLE}.busi_unit ;;
   }
   dimension: busi_unit_desc {
@@ -90,6 +91,7 @@ view: anl_costbkng {
     sql: ${TABLE}.dlvry_reltd_bllng_stat_cd ;;
   }
   dimension: doc_id {
+    primary_key: yes
     type: string
     sql: ${TABLE}.doc_id ;;
   }

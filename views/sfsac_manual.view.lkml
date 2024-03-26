@@ -2,6 +2,7 @@ view: sfsac_manual {
   sql_table_name: `sap-cortex-391114.SAP_CDC_PROCESSED_FP.SFSAC_manual` ;;
 
   dimension: bu {
+    primary_key: yes
     type: string
     sql: ${TABLE}.bu ;;
   }
@@ -16,6 +17,10 @@ view: sfsac_manual {
   dimension: sfsac_manual {
     type: number
     sql: ${TABLE}.SFSAC_manual ;;
+  }
+
+  measure: count {
+    type: count
   }
 
   #sfsac total
