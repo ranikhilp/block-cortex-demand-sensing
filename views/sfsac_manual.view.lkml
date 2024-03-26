@@ -14,13 +14,10 @@ view: sfsac_manual {
     type: string
     sql: ${TABLE}.region ;;
   }
+
   dimension: sfsac_manual {
     type: number
     sql: ${TABLE}.SFSAC_manual ;;
-  }
-
-  measure: count {
-    type: count
   }
 
   #sfsac total
