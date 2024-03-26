@@ -7,7 +7,6 @@ view: sfsac_manual {
   }
   dimension: qtr {
     type: string
-
     sql: ${TABLE}.QTR ;;
   }
   dimension: region {
@@ -18,9 +17,10 @@ view: sfsac_manual {
     type: number
     sql: ${TABLE}.SFSAC_manual ;;
   }
-#sfsac total
+
+  #sfsac total
   measure: sfsac_total {
-  type: sum
+    type: sum
     sql: ${sfsac_manual} ;;
   }
 }
