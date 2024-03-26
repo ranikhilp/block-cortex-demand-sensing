@@ -20,4 +20,9 @@ view: gross_orders_manual {
   measure: count {
     type: count
   }
+
+  measure: gross_ord_sum {
+    type: sum
+    sql: ${gross_orders_manual} ;;
+  }
 }
