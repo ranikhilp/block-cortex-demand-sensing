@@ -578,10 +578,10 @@ dimension: net_backlog_test {
   sql: ${open_qty_glbl_m_net_val} - ${sfsac_manual.sfsac_manual} ;;
 }
 
-#measure: test_measure {
-#  type: sum
- # sql: ${test_dim} ;;
-#}
+measure: net_backlog_test_sum {
+  type: sum
+  sql: ${net_backlog_test} ;;
+}
 
 
 #Gross Backlog
