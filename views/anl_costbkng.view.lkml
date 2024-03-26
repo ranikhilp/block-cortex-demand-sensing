@@ -579,7 +579,11 @@ view: anl_costbkng {
     sql: ${open_qty_glbl_m_net_val} ;;
   }
 
-
+#Gross Backlog
+  measure: net_backlog{
+    type: sum
+    sql: ${open_qty_glbl_m_net_val} + ${sfsac_manual.sfsac_manual} ;;
+  }
 
   ############################################################
 #############   Implementing Marks logic as is #############
