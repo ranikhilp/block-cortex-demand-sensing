@@ -33,13 +33,13 @@ explore: anl_costbkng {
     sql_on: ${anl_ra_gdsdate_dim.date_dt_date} = ${anl_costbkng.sls_ord_ln_itm_reqstd_dlvry_dte_date};;
   }
   join: gross_orders_manual {
-    relationship: many_to_many
+    relationship: many_to_one
     type: inner
     sql_on: ${ra_gds_datamatl.FBU} = ${gross_orders_manual.bu}
     and ${anl_costbkng.sls_region} = ${gross_orders_manual.region};;
   }
   join: sfsac_manual {
-    relationship: many_to_many
+    relationship: many_to_one
     type: inner
     sql_on: ${ra_gds_datamatl.FBU} = ${sfsac_manual.bu}
       and ${anl_costbkng.sls_region} = ${sfsac_manual.region};;
@@ -50,5 +50,6 @@ explore: anl_costbkng {
       anl_costbkng.sched_line_cat: "CP , CN , ZN",anl_costbkng.plt_cd: "-8% , -9%",
       anl_costbkng.itm_rjctn_stat:"null , EMPTY , A , B"]
   }
+
 
 }

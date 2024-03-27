@@ -16,6 +16,7 @@ view: anl_costbkng {
   }
   dimension: busi_unit {
     type: string
+    # primary_key: yes
     sql: ${TABLE}.busi_unit ;;
   }
   dimension: busi_unit_desc {
@@ -90,6 +91,7 @@ view: anl_costbkng {
     sql: ${TABLE}.dlvry_reltd_bllng_stat_cd ;;
   }
   dimension: doc_id {
+    primary_key: yes
     type: string
     sql: ${TABLE}.doc_id ;;
   }
@@ -573,7 +575,28 @@ view: anl_costbkng {
     sql: ${Conversion_sum}/nullif(${gross_orders_sum}, 0);;
   }
 
+dimension: net_backlog_test {
+  type: number
+  sql: ${open_qty_glbl_m_net_val} - ${sfsac_manual.sfsac_manual} ;;
+}
 
+measure: net_backlog_test_sum {
+  type: sum
+  sql: ${net_backlog_test} ;;
+}
+
+
+#Gross Backlog
+  measure: gross_backlog{
+    type: sum
+    sql: ${open_qty_glbl_m_net_val} ;;
+  }
+
+#Gross Backlog
+  measure: net_backlog{
+    type: sum
+    sql: ${open_qty_glbl_m_net_val} + ${sfsac_manual.sfsac_manual} ;;
+  }
 
   ############################################################
 #############   Implementing Marks logic as is #############
