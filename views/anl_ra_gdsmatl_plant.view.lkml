@@ -114,6 +114,7 @@ view: anl_ra_gdsmatl_plant {
     sql: ${TABLE}.matl_ctry_origin_cd ;;
   }
   dimension: matl_id {
+    primary_key: yes
     type: string
     sql: ${TABLE}.matl_id ;;
   }

@@ -14,7 +14,7 @@ view: sql_runner_query {
       ELSE 'other'
       END AS ra_gds_datamatl_fbu_1,
           sum(anl_costbkng.open_qty_glbl_m_net_val + sfsac_manual.SFSAC_manual)  AS anl_costbkng_test_dim,
-          
+
       FROM `sap-cortex-391114.SAP_CDC_PROCESSED_FP.anl_cost-bkng`  AS anl_costbkng
       INNER JOIN `sap-cortex-391114.SAP_CDC_PROCESSED_FP.ra_gds_data-matl`  AS ra_gds_datamatl ON anl_costbkng.matl_id = ra_gds_datamatl.matl_id
       INNER JOIN `sap-cortex-391114.SAP_CDC_PROCESSED_FP.SFSAC_manual`  AS sfsac_manual ON (CASE
@@ -58,6 +58,7 @@ view: sql_runner_query {
   }
 
   dimension: anl_costbkng_test_dim {
+    label: "Net Backlog"
     type: number
     sql: ${TABLE}.anl_costbkng_test_dim ;;
   }
@@ -65,7 +66,7 @@ view: sql_runner_query {
   set: detail {
     fields: [
         ra_gds_datamatl_fbu_1,
-	anl_costbkng_test_dim
+  anl_costbkng_test_dim
     ]
   }
 }

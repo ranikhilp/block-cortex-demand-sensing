@@ -16,7 +16,7 @@ view: anl_costbkng {
   }
   dimension: busi_unit {
     type: string
-    # primary_key: yes
+    #primary_key: yes
     sql: ${TABLE}.busi_unit ;;
   }
   dimension: busi_unit_desc {
@@ -575,13 +575,13 @@ view: anl_costbkng {
 
 dimension: net_backlog_test {
   type: number
-  sql: ${open_qty_glbl_m_net_val} - ${sfsac_manual.sfsac_manual} ;;
+  sql: ${open_qty_glbl_m_net_val} - ${sfsc_manual_primarykey.sfsac_manual} ;;
 }
 
-#measure: test_measure {
-#  type: sum
- # sql: ${test_dim} ;;
-#}
+measure: test_measure {
+  type: sum
+  sql: ${net_backlog_test} ;;
+}
 
 
 #Gross Backlog
@@ -593,7 +593,7 @@ dimension: net_backlog_test {
 #Gross Backlog
   measure: net_backlog{
     type: sum
-    sql: ${open_qty_glbl_m_net_val} + ${sfsac_manual.sfsac_manual} ;;
+    sql: ${open_qty_glbl_m_net_val} + ${sfsc_manual_primarykey.sfsac_manual} ;;
   }
 
   ############################################################

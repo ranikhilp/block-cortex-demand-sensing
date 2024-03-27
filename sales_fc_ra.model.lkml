@@ -38,11 +38,11 @@ explore: anl_costbkng {
     sql_on: ${ra_gds_datamatl.FBU} = ${gross_orders_manual.bu}
     and ${anl_costbkng.sls_region} = ${gross_orders_manual.region};;
   }
-  join: sfsac_manual {
+  join: sfsc_manual_primarykey {
     relationship: many_to_many
     type: inner
-    sql_on: ${ra_gds_datamatl.FBU} = ${sfsac_manual.bu}
-      and ${anl_costbkng.sls_region} = ${sfsac_manual.region};;
+    sql_on: ${ra_gds_datamatl.FBU} = ${sfsc_manual_primarykey.bu}
+      and ${anl_costbkng.sls_region} = ${sfsc_manual_primarykey.region};;
   }
   #INTERCOMPANY FILTER
   always_filter: {
