@@ -56,5 +56,5 @@ explore: anl_costbkng {
   }
   }
 
-# and   ${anl_costbkng.creatd_dttm_month} = ${gross_orders_manual.qtr_dttm_month};;
+# and  ${anl_costbkng.creatd_dttm_month} = ${gross_orders_manual.qtr_dttm_month};;
 # and  ${sfsac_manual.qtr_dttm_month} = ${anl_costbkng.creatd_dttm_month};;
