@@ -568,6 +568,8 @@ view: anl_costbkng {
     sql: ${Conversion} ;;
   }
 
+
+
   measure: count {
     type: count
   }
@@ -588,7 +590,8 @@ dimension: net_backlog_test {
   sql: ${open_qty_glbl_m_net_val} - ${sfsac_manual.sfsac_manual} ;;
 }
 
-measure: test_measure {
+
+measure: net_backlog_test_sum {
   type: sum
   sql: ${net_backlog_test} ;;
 }
@@ -608,7 +611,6 @@ measure: test_measure {
 
   ############################################################
 #############   Implementing Marks logic as is #############
-
 
 
 

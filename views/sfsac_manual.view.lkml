@@ -22,6 +22,7 @@ label: "Ship From Stock and Credits"
     sql: ${TABLE}.SFSAC_manual ;;
   }
 
+
   dimension: primary_key {
     primary_key: yes
     hidden: yes
@@ -35,4 +36,16 @@ label: "Ship From Stock and Credits"
     type: sum
     sql: ${sfsac_manual} ;;
   }
+
+
+  measure: count {
+    type: count
+  }
+
+
+  # #sfsac total
+  # measure: sfsac_total {
+  #   type: sum
+  #   sql: ${sfsac_manual} ;;
+  # }
 }
