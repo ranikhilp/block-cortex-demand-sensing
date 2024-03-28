@@ -36,19 +36,17 @@ explore: anl_costbkng {
   join: gross_orders_manual {
     relationship: one_to_many
     type: inner
-    sql_on: ${ra_gds_datamatl.FBU} = ${gross_orders_manual.bu}
-    and ${anl_costbkng.sls_region} = ${gross_orders_manual.region}
-    and ${anl_costbkng.creatd_dttm_month} = ${gross_orders_manual.qtr_dttm_month};;
+    sql_on:  ${gross_orders_manual.bu} = ${ra_gds_datamatl.FBU}
+    and ${gross_orders_manual.region} = ${anl_costbkng.sls_region} ;;
 
   }
 
   join: sfsac_manual {
     relationship: one_to_many
     type: inner
-    sql_on: ${ra_gds_datamatl.FBU} = ${sfsac_manual.bu}
-      AND ${anl_costbkng.sls_region} = ${sfsac_manual.region}
-      and ${anl_costbkng.creatd_dttm_month} = ${sfsac_manual.qtr_dttm_month};;
-  }
+    sql_on: ${sfsac_manual.bu} = ${ra_gds_datamatl.FBU}
+      AND  ${sfsac_manual.region} = ${anl_costbkng.sls_region} ;;
+    }
 
   #INTERCOMPANY FILTER
   always_filter: {
@@ -57,3 +55,6 @@ explore: anl_costbkng {
       anl_costbkng.itm_rjctn_stat:"null , EMPTY , A , B"]
   }
   }
+
+# and   ${anl_costbkng.creatd_dttm_month} = ${gross_orders_manual.qtr_dttm_month};;
+# and  ${sfsac_manual.qtr_dttm_month} = ${anl_costbkng.creatd_dttm_month};;
