@@ -38,6 +38,16 @@ view: anl_busi_lgstcsoutbound_deliveries {
     type: number
     sql: ${TABLE}.dlvry_doc_itm_no ;;
   }
+
+  dimension: primary_key {
+    type: string
+    primary_key: yes
+    hidden: yes
+    sql: CONCAT( dlvry_doc_id, '-', matl_id, '-', ref_doc_id, '-', ref_doc_itm_no,) ;;
+
+  }
+
+
   dimension_group: dlvry_doc_updtd_dte {
     type: time
     timeframes: [raw, date, week, month, quarter, year]

@@ -109,6 +109,7 @@ view: ra_gds_datamatl {
   }
   dimension: matl_id {
     type: string
+    primary_key: yes
     sql: ${TABLE}.matl_id ;;
   }
   dimension_group: matl_mstr_creatd_dt {

@@ -2,6 +2,7 @@ view: anl_costbkng {
   sql_table_name: `sap-cortex-391114.SAP_CDC_PROCESSED_FP.anl_cost-bkng` ;;
   label: "Booking"
 
+
   dimension: agrmnt_num {
     type: string
     sql: ${TABLE}.agrmnt_num ;;
@@ -91,10 +92,18 @@ view: anl_costbkng {
     sql: ${TABLE}.dlvry_reltd_bllng_stat_cd ;;
   }
   dimension: doc_id {
-    primary_key: yes
+    #primary_key: yes
     type: string
     sql: ${TABLE}.doc_id ;;
   }
+
+  dimension: primary_key {
+    primary_key: yes
+    hidden: yes
+    type: string
+    sql: CONCAT(${doc_id}, '-' ,${itm_nbr}) ;;
+  }
+
   dimension: frt_chrg_in_usd_at_p_rate {
     type: number
     sql: ${TABLE}.frt_chrg_in_usd_at_p_rate ;;
@@ -575,7 +584,8 @@ view: anl_costbkng {
 
 dimension: net_backlog_test {
   type: number
-  sql: ${open_qty_glbl_m_net_val} - ${sfsc_manual_primarykey.sfsac_manual} ;;
+  value_format_name: usd
+  sql: ${open_qty_glbl_m_net_val} - ${sfsac_manual.sfsac_manual} ;;
 }
 
 measure: test_measure {
@@ -593,7 +603,7 @@ measure: test_measure {
 #Gross Backlog
   measure: net_backlog{
     type: sum
-    sql: ${open_qty_glbl_m_net_val} + ${sfsc_manual_primarykey.sfsac_manual} ;;
+    sql: ${open_qty_glbl_m_net_val} + ${sfsac_manual.sfsac_manual} ;;
   }
 
   ############################################################

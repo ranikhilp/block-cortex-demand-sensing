@@ -17,6 +17,22 @@ view: gross_orders_manual {
     type: string
     sql: ${TABLE}.region ;;
   }
+
+  dimension: primary_key {
+    primary_key: yes
+    hidden: yes
+    type: string
+    sql: CONCAT(${bu}, '-', ${qtr}, '-', ${region}) ;;
+
+  }
+
+measure: gross_orders_sum {
+  value_format_name: usd
+  type: sum
+  sql: ${gross_orders_manual} ;;
+}
+
+
   measure: count {
     type: count
   }

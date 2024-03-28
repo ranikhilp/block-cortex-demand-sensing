@@ -1,16 +1,18 @@
 view: sfsac_manual {
   sql_table_name: `sap-cortex-391114.SAP_CDC_PROCESSED_FP.SFSAC_manual` ;;
+label: "Ship From Stock and Credits"
 
   dimension: bu {
-    # primary_key: yes
     type: string
     sql: ${TABLE}.bu ;;
   }
+
   dimension: qtr {
     type: string
     sql: ${TABLE}.QTR ;;
   }
-  dimension: region {
+
+    dimension: region {
     type: string
     sql: ${TABLE}.region ;;
   }
@@ -20,8 +22,16 @@ view: sfsac_manual {
     sql: ${TABLE}.SFSAC_manual ;;
   }
 
+  dimension: primary_key {
+    primary_key: yes
+    hidden: yes
+    type: string
+    sql: CONCAT(${bu}, '-', ${qtr}, '-', ${region}) ;;
+  }
+
   #sfsac total
   measure: sfsac_total {
+    value_format_name: usd
     type: sum
     sql: ${sfsac_manual} ;;
   }
