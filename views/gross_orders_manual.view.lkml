@@ -17,6 +17,10 @@ view: gross_orders_manual {
     type: string
     sql: ${TABLE}.QTR ;;
   }
+  dimension: qtr_join {
+    hidden: yes
+    sql:SUBSTRING(CAST(qtr_dttm AS string), 1, 7) ;;
+  }
 
 
   dimension_group: qtr_dttm {
@@ -26,6 +30,7 @@ view: gross_orders_manual {
     datatype: date
     sql: ${TABLE}.QTR_DTTM ;;
   }
+
 
   dimension: region {
     type: string
