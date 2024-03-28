@@ -37,8 +37,10 @@ explore: anl_costbkng {
     relationship: one_to_many
     type: inner
     sql_on: ${ra_gds_datamatl.FBU} = ${gross_orders_manual.bu}
-    and ${anl_costbkng.sls_region} = ${gross_orders_manual.region};;
+    and ${anl_costbkng.sls_region} = ${gross_orders_manual.region}
+    AND CAST((FORMAT_TIMESTAMP('%Y-%m', TIMESTAMP_TRUNC(TIMESTAMP(DATETIME_ADD(DATETIME(TIMESTAMP_TRUNC(anl_costbkng.creatd_dttm , MONTH)), INTERVAL 3 MONTH)), QUARTER))) AS STRING) = REGEXP_REPLACE(REGEXP_REPLACE(${gross_orders_manual.qtr}, 'Q', '0'), 'FY', '');;
   }
+
   join: sfsac_manual {
     relationship: one_to_many
     type: inner
@@ -52,6 +54,7 @@ explore: anl_costbkng {
     filters: [anl_costbkng.sls_doc_type: "-ZEOR,- ZPLS, -ZIPO",
       anl_costbkng.sched_line_cat: "CP , CN , ZN",anl_costbkng.plt_cd: "-8% , -9%",
       anl_costbkng.itm_rjctn_stat:"null , EMPTY , A , B"]
+
   }
 
-    }
+  }
