@@ -36,18 +36,19 @@ explore: anl_costbkng {
   join: gross_orders_manual {
     relationship: one_to_many
     type: inner
-    sql_on: ${ra_gds_datamatl.FBU} = ${gross_orders_manual.bu}
-    and ${anl_costbkng.sls_region} = ${gross_orders_manual.region}
-    AND CAST((FORMAT_TIMESTAMP('%Y-%m', TIMESTAMP_TRUNC(TIMESTAMP(DATETIME_ADD(DATETIME(TIMESTAMP_TRUNC(anl_costbkng.creatd_dttm , MONTH)), INTERVAL 3 MONTH)), QUARTER))) AS STRING) = REGEXP_REPLACE(REGEXP_REPLACE(${gross_orders_manual.qtr}, 'Q', '0'), 'FY', '');;
-  }
+    sql_on:  ${gross_orders_manual.bu} = ${ra_gds_datamatl.FBU}
+    and ${gross_orders_manual.region} = ${anl_costbkng.sls_region} ;;
 
+  }
   join: sfsac_manual {
     relationship: one_to_many
     type: inner
+
     sql_on: ${ra_gds_datamatl.FBU} = ${sfsac_manual.bu}
       AND ${anl_costbkng.sls_region} = ${sfsac_manual.region}
       AND ${anl_costbkng.qtr_join} = ${sfsac_manual.qtr_join};;
   }
+
 
   #INTERCOMPANY FILTER
   always_filter: {
@@ -58,3 +59,6 @@ explore: anl_costbkng {
   }
 
   }
+
+# and  ${anl_costbkng.creatd_dttm_month} = ${gross_orders_manual.qtr_dttm_month};;
+# and  ${sfsac_manual.qtr_dttm_month} = ${anl_costbkng.creatd_dttm_month};;

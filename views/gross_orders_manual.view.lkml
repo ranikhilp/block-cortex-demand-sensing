@@ -5,6 +5,10 @@ view: gross_orders_manual {
     type: string
     sql: ${TABLE}.BU ;;
   }
+  dimension: fy {
+    type: number
+    sql: ${TABLE}.FY ;;
+  }
   dimension: gross_orders_manual {
     type: number
     sql: ${TABLE}.Gross_Orders_manual ;;
@@ -14,15 +18,13 @@ view: gross_orders_manual {
     sql: ${TABLE}.QTR ;;
   }
 
-  dimension: fy {
-    type: string
-    sql: ${TABLE}.fy ;;
-
-  }
 
   dimension_group: qtr_dttm {
     type: time
-    sql: ${TABLE}.qtr_dttm_quarter ;;
+    timeframes: [raw, date, week, month, quarter,fiscal_quarter, year]
+    convert_tz: no
+    datatype: date
+    sql: ${TABLE}.QTR_DTTM ;;
   }
 
   dimension: region {
@@ -38,12 +40,14 @@ view: gross_orders_manual {
 
   }
 
-measure: gross_orders_sum {
-  value_format_name: usd
-  type: sum
-  sql: ${gross_orders_manual} ;;
-}
+  measure: gross_orders_sum {
+    value_format_name: usd
+    type: sum
+    sql: ${gross_orders_manual} ;;
+  }
 
 
-
+  measure: count {
+    type: count
+  }
 }
