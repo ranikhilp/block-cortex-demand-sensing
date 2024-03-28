@@ -38,7 +38,8 @@ explore: anl_costbkng {
     type: inner
     sql_on: ${ra_gds_datamatl.FBU} = ${gross_orders_manual.bu}
     and ${anl_costbkng.sls_region} = ${gross_orders_manual.region}
-    AND CAST((FORMAT_TIMESTAMP('%Y-%m', TIMESTAMP_TRUNC(TIMESTAMP(DATETIME_ADD(DATETIME(TIMESTAMP_TRUNC(anl_costbkng.creatd_dttm , MONTH)), INTERVAL 3 MONTH)), QUARTER))) AS STRING) = REGEXP_REPLACE(REGEXP_REPLACE(${gross_orders_manual.qtr}, 'Q', '0'), 'FY', '');;
+    and ${anl_costbkng.creatd_dttm_month} = ${gross_orders_manual.qtr_dttm_month};;
+
   }
 
   join: sfsac_manual {
@@ -46,7 +47,7 @@ explore: anl_costbkng {
     type: inner
     sql_on: ${ra_gds_datamatl.FBU} = ${sfsac_manual.bu}
       AND ${anl_costbkng.sls_region} = ${sfsac_manual.region}
-      AND CAST((FORMAT_TIMESTAMP('%Y-%m', TIMESTAMP_TRUNC(TIMESTAMP(DATETIME_ADD(DATETIME(TIMESTAMP_TRUNC(anl_costbkng.creatd_dttm , MONTH)), INTERVAL 3 MONTH)), QUARTER))) AS STRING) = REGEXP_REPLACE(REGEXP_REPLACE(${sfsac_manual.qtr}, 'Q', '0'), 'FY', '');;
+      and ${anl_costbkng.creatd_dttm_month} = ${sfsac_manual.qtr_dttm_month};;
   }
 
   #INTERCOMPANY FILTER
