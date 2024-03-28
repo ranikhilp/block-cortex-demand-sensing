@@ -559,6 +559,8 @@ view: anl_costbkng {
     sql: ${Conversion} ;;
   }
 
+
+
   measure: count {
     type: count
   }
@@ -598,7 +600,6 @@ measure: net_backlog_test_sum {
 
   ############################################################
 #############   Implementing Marks logic as is #############
-
 
 
 

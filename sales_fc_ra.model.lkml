@@ -42,7 +42,7 @@ explore: anl_costbkng {
     relationship: one_to_many
     type: inner
     sql_on: ${ra_gds_datamatl.FBU} = ${sfsac_manual.bu}
-      and ${anl_costbkng.sls_region} = ${sfsac_manual.region};;
+    and ${anl_costbkng.sls_region} = ${sfsac_manual.region};;
   }
   #INTERCOMPANY FILTER
   always_filter: {
