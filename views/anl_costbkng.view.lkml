@@ -517,7 +517,7 @@ view: anl_costbkng {
   }
 
   # calculate gross orders sum
-  measure: gross_orders_sum{
+  measure: gross_orders_actuals_sum{
     type: sum
     sql: ${gross_orders} ;;
   }
@@ -581,7 +581,7 @@ view: anl_costbkng {
   measure: conversion_rate{
     type: number
     value_format_name: percent_2
-    sql: ${Conversion_sum}/nullif(${gross_orders_sum}, 0);;
+    sql: ${Conversion_sum}/nullif(${gross_orders_actuals_sum}, 0);;
   }
 
 dimension: net_backlog_test {
