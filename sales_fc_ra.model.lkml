@@ -46,7 +46,7 @@ explore: anl_costbkng {
     type: inner
     sql_on: ${ra_gds_datamatl.FBU} = ${sfsac_manual.bu}
       AND ${anl_costbkng.sls_region} = ${sfsac_manual.region}
-      AND CAST((FORMAT_TIMESTAMP('%Y-%m', TIMESTAMP_TRUNC(TIMESTAMP(DATETIME_ADD(DATETIME(TIMESTAMP_TRUNC(anl_costbkng.creatd_dttm , MONTH)), INTERVAL 3 MONTH)), QUARTER))) AS STRING) = REGEXP_REPLACE(REGEXP_REPLACE(${sfsac_manual.qtr}, 'Q', '0'), 'FY', '');;
+      AND ${anl_costbkng.qtr_join} = ${sfsac_manual.qtr_join};;
   }
 
   #INTERCOMPANY FILTER

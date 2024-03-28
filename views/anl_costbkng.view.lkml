@@ -47,6 +47,14 @@ view: anl_costbkng {
     timeframes: [raw, time, date, week, month, quarter,fiscal_quarter,month_name, year]
     sql: ${TABLE}.creatd_dttm ;;
   }
+
+
+  dimension: qtr_join {
+    hidden: yes
+    sql:SUBSTRING(CAST(creatd_dttm AS string), 1, 7) ;;
+  }
+
+
   dimension: cum_cnfrmd_qty {
     type: number
     sql: ${TABLE}.cum_cnfrmd_qty ;;

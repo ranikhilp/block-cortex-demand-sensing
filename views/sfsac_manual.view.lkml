@@ -12,6 +12,12 @@ label: "Ship From Stock and Credits"
     sql: ${TABLE}.QTR ;;
   }
 
+  dimension: qtr_join {
+    hidden: yes
+    sql:SUBSTRING(CAST(qtr_dttm AS string), 1, 7) ;;
+  }
+
+
     dimension: region {
     type: string
     sql: ${TABLE}.region ;;

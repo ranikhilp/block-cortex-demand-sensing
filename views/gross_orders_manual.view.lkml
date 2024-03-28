@@ -13,6 +13,18 @@ view: gross_orders_manual {
     type: string
     sql: ${TABLE}.QTR ;;
   }
+
+  dimension: fy {
+    type: string
+    sql: ${TABLE}.fy ;;
+
+  }
+
+  dimension_group: qtr_dttm {
+    type: time
+    sql: ${TABLE}.qtr_dttm_quarter ;;
+  }
+
   dimension: region {
     type: string
     sql: ${TABLE}.region ;;
