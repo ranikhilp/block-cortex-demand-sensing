@@ -51,7 +51,7 @@ view: anl_costbkng {
 
   dimension: qtr_join {
     hidden: yes
-    sql:SUBSTRING(CAST(creatd_dttm AS string), 1, 7) ;;
+    sql:SUBSTRING(CAST(${creatd_dttm_date} AS string), 1, 7) ;;
   }
 
 

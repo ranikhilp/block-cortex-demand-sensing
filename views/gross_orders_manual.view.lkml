@@ -19,7 +19,7 @@ view: gross_orders_manual {
   }
   dimension: qtr_join {
     hidden: yes
-    sql:SUBSTRING(CAST(qtr_dttm AS string), 1, 7) ;;
+    sql:SUBSTRING(CAST(${qtr_dttm_date} AS string), 1, 7) ;;
   }
 
 
