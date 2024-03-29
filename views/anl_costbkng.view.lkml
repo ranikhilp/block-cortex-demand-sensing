@@ -530,16 +530,16 @@ view: anl_costbkng {
     sql: ${gross_orders} ;;
   }
 
-  dimension: ord_conv_diff {
-    type: number
-    sql: ${gross_orders} - ${open_qty_glbl_m_net_val} ;;
-  }
+  # dimension: ord_conv_diff {
+  #   type: number
+  #   sql: ${gross_orders} - ${open_qty_glbl_m_net_val} ;;
+  # }
 
 
-  measure: ord_conv_diff_sum{
-    type: sum
-    sql: ${ord_conv_diff} ;;
-  }
+  # measure: ord_conv_diff_sum{
+  #   type: sum
+  #   sql: ${ord_conv_diff} ;;
+  # }
 
 
 
@@ -578,10 +578,6 @@ view: anl_costbkng {
 
 
 
-  measure: count {
-    type: count
-  }
-
   # measure: conversion_rate{
   #   type: percent_of_total
   #   sql: ${Conversion_sum}/${gross_orders_sum}  ;;
@@ -592,17 +588,17 @@ view: anl_costbkng {
     sql: ${Conversion_sum}/nullif(${gross_orders_actuals_sum}, 0);;
   }
 
-dimension: net_backlog_test {
-  type: number
-  value_format_name: usd
-  sql: ${open_qty_glbl_m_net_val} - ${sfsac_manual.sfsac_manual} ;;
-}
+# dimension: net_backlog_test {
+#   type: number
+#   value_format_name: usd
+#   sql: ${open_qty_glbl_m_net_val} - ${sfsac_manual.sfsac_manual} ;;
+# }
 
 
-measure: net_backlog_test_sum {
-  type: sum
-  sql: ${net_backlog_test} ;;
-}
+# measure: net_backlog_test_sum {
+#   type: sum
+#   sql: ${net_backlog_test} ;;
+# }
 
 
 #Gross Backlog
@@ -611,19 +607,35 @@ measure: net_backlog_test_sum {
     sql: ${open_qty_glbl_m_net_val} ;;
   }
 
-#Gross Backlog
-  measure: net_backlog{
-    type: sum
+#Net Backlog
+  dimension: net_backlog{
+    type: number
+    value_format_name: usd
     sql: ${open_qty_glbl_m_net_val} + ${sfsac_manual.sfsac_manual} ;;
   }
 
-  ############################################################
-#############   Implementing Marks logic as is #############
+#Net Backlog Sum
+  measure: net_backlog_sum{
+    type: sum
+    value_format_name: usd
+    sql: ${net_backlog} ;;
+  }
 
-
-
-#############   Implementing Marks logic as is ##############
-#############################################################
+  #Gross Sales
+  dimension: gross_sales {
+    type: number
+    sql: ${open_qty_glbl_m_net_val} + ${Conversion} ;;
+  }
+  #Gross Sales sum
+  measure: gross_sales_sum {
+    type: sum
+    sql: ${gross_sales} ;;
+  }
+  #Net Sales
+  measure: Net_sales {
+    type: sum
+    sql: ${gross_sales} + ${sfsac_manual.sfsac_manual} ;;
+  }
 
 
 }
