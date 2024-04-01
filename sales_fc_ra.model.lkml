@@ -53,7 +53,13 @@ explore: anl_costbkng {
     # AND right outer join anl_costbkng on ${anl_costbkng.qtr_join} = ${sfsac_manual.qtr_join};;
   }
 
-
+  join: sfsac_manual_month {
+    relationship: one_to_many
+    type: cross
+    sql_on: ${ra_gds_datamatl.FBU} = ${sfsac_manual.bu}
+      AND ${anl_costbkng.sls_region} = ${sfsac_manual.region}
+      AND  ${sfsac_manual_month.date_month} = ${anl_costbkng.creatd_dttm_month} ;;
+   }
 
   #INTERCOMPANY FILTER
   always_filter: {
