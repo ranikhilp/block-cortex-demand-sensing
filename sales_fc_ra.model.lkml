@@ -43,10 +43,14 @@ explore: anl_costbkng {
   }
   join: sfsac_manual {
     relationship: one_to_many
-    type: inner
+    type: cross
     sql_on: ${ra_gds_datamatl.FBU} = ${sfsac_manual.bu}
       AND ${anl_costbkng.sls_region} = ${sfsac_manual.region}
-      AND ${anl_costbkng.qtr_join} = ${sfsac_manual.qtr_join};;
+      AND  ${sfsac_manual.qtr_join} = ${anl_costbkng.qtr_join} ;;
+
+    # sql:inner join ra_gds_datamatl on ${ra_gds_datamatl.FBU} = ${sfsac_manual.bu}
+    # AND inner join anl_costbkng on ${anl_costbkng.sls_region} = ${sfsac_manual.region}
+    # AND right outer join anl_costbkng on ${anl_costbkng.qtr_join} = ${sfsac_manual.qtr_join};;
   }
 
 
