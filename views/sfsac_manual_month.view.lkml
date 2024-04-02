@@ -24,6 +24,20 @@ view: sfsac_manual_month {
     type: number
     sql: ${TABLE}.sfsac_manual ;;
   }
+
+  dimension: primary_key {
+    primary_key: yes
+    hidden: yes
+    type: string
+    sql: CONCAT(${bu}, '-', ${month}, '-', ${region}) ;;
+  }
+
+  measure: sfsac_total {
+    value_format_name: usd
+    type: sum
+    sql: ${sfsac_manual} ;;
+  }
+
   measure: count {
     type: count
   }
