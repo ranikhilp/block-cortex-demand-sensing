@@ -28,11 +28,13 @@ explore: anl_costbkng {
     sql_on: ${anl_busi_lgstcsoutbound_deliveries.ref_doc_id} = ${anl_costbkng.doc_id}
            and ${anl_costbkng.itm_nbr} = ${anl_busi_lgstcsoutbound_deliveries.ref_doc_itm_no};;
   }
-#  join: anl_ra_gdsdate_dim {
-#    relationship: many_to_many
-#    type: inner
-#    sql_on: ${anl_ra_gdsdate_dim.date_dt_date} = ${anl_costbkng.sls_ord_ln_itm_reqstd_dlvry_dte_date};;
-#  }
+  # join: anl_ra_gdsdate_dim {
+  #   relationship: many_to_many
+  #   type: inner
+  #   sql_on: ${anl_ra_gdsdate_dim.date_dt_date} = ${anl_costbkng.sls_ord_ln_itm_reqstd_dlvry_dte_date};;
+  # }
+
+
   join: gross_orders_manual {
     relationship: one_to_many
     type: inner
@@ -41,9 +43,11 @@ explore: anl_costbkng {
     AND ${anl_costbkng.qtr_join} = ${gross_orders_manual.qtr_join};;
 
   }
+
+
   join: sfsac_manual {
     relationship: one_to_many
-    type: inner
+    type: full_outer
     sql_on: ${ra_gds_datamatl.FBU} = ${sfsac_manual.bu}
       AND ${anl_costbkng.sls_region} = ${sfsac_manual.region}
       AND  ${sfsac_manual.qtr_join} = ${anl_costbkng.qtr_join} ;;
