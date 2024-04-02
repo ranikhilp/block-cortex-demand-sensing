@@ -43,7 +43,7 @@ explore: anl_costbkng {
   }
   join: sfsac_manual {
     relationship: one_to_many
-    type: cross
+    type: full_outer
     sql_on: ${ra_gds_datamatl.FBU} = ${sfsac_manual.bu}
       AND ${anl_costbkng.sls_region} = ${sfsac_manual.region}
       AND  ${sfsac_manual.qtr_join} = ${anl_costbkng.qtr_join} ;;
