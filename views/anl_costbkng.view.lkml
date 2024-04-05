@@ -498,6 +498,8 @@ view: anl_costbkng {
     alpha_sort:  yes
   }
 
+
+
   dimension: CurrentQTR {
     description: "current quarter reference"
     type:date_fiscal_quarter
@@ -637,5 +639,114 @@ view: anl_costbkng {
     sql: ${gross_sales} + ${sfsac_manual.sfsac_manual} ;;
   }
 
+  ######################################################################################################
+  # dimension: ReferencePeriod {
+  #   type: date_fiscal_quarter
+  #   sql: (SELECT
+  #   ${creatd_dttm_raw}
+  #   );;
+  # }
+
+
+  dimension: OC_1Qtr {
+    description: "1 quarter out"
+    type: number
+    sql: (SELECT
+          CASE
+              WHEN ${CurrentQTR} > ${creatd_dttm_fiscal_quarter} AND ${ord_itm_lst_goods_iss_dt_fiscal_quarter} =
+    FORMAT_TIMESTAMP('%Y-%m', TIMESTAMP_TRUNC(
+        TIMESTAMP(
+            DATE_ADD(
+                ${creatd_dttm_date},
+                INTERVAL 6 MONTH
+            )
+        ),
+        QUARTER
+    ))
+              THEN ${gross_orders} - ${open_qty_glbl_m_net_val}
+              ELSE 0 END) ;;
+  }
+
+# calculate conversion sum
+  measure: OC_1Qtr_sum{
+    description: "1 quarter out sum"
+    type: sum
+    sql: ${OC_1Qtr} ;;
+  }
+
+  measure: OC_1Qtr_rate{
+    description: "1 quarter out rate"
+    type: number
+    value_format_name: percent_2
+    sql: ${OC_1Qtr_sum}/nullif(${gross_orders_actuals_sum}, 0);;
+  }
+
+  ############### 2 Quarters out####################
+  dimension: OC_2Qtr {
+    description: "2 quarter out"
+    type: number
+    sql: (SELECT
+          CASE
+              WHEN ${CurrentQTR} > ${creatd_dttm_fiscal_quarter} AND ${ord_itm_lst_goods_iss_dt_fiscal_quarter} =
+    FORMAT_TIMESTAMP('%Y-%m', TIMESTAMP_TRUNC(
+        TIMESTAMP(
+            DATE_ADD(
+                ${creatd_dttm_date},
+                INTERVAL 9 MONTH
+            )
+        ),
+        QUARTER
+    ))
+              THEN ${gross_orders} - ${open_qty_glbl_m_net_val}
+              ELSE 0 END) ;;
+  }
+
+# calculate conversion sum
+  measure: OC_2Qtr_sum{
+    description: "2 quarters out sum"
+    type: sum
+    sql: ${OC_2Qtr} ;;
+  }
+
+  measure: OC_2Qtr_rate{
+    description: "2 quarters out rate"
+    type: number
+    value_format_name: percent_2
+    sql: ${OC_2Qtr_sum}/nullif(${gross_orders_actuals_sum}, 0);;
+  }
+
+  ############### 3 Quarters out####################
+  dimension: OC_3Qtr {
+    description: "3 quarters out"
+    type: number
+    sql: (SELECT
+          CASE
+              WHEN ${CurrentQTR} > ${creatd_dttm_fiscal_quarter} AND ${ord_itm_lst_goods_iss_dt_fiscal_quarter} =
+    FORMAT_TIMESTAMP('%Y-%m', TIMESTAMP_TRUNC(
+        TIMESTAMP(
+            DATE_ADD(
+                ${creatd_dttm_date},
+                INTERVAL 12 MONTH
+            )
+        ),
+        QUARTER
+    ))
+              THEN ${gross_orders} - ${open_qty_glbl_m_net_val}
+              ELSE 0 END) ;;
+  }
+
+# calculate conversion sum
+  measure: OC_3Qtr_sum{
+    description: "3 quarters out sum"
+    type: sum
+    sql: ${OC_3Qtr} ;;
+  }
+
+  measure: OC_3Qtr_rate{
+    description: "3 quarters out rate"
+    type: number
+    value_format_name: percent_2
+    sql: ${OC_3Qtr_sum}/nullif(${gross_orders_actuals_sum}, 0);;
+  }
 
 }
