@@ -1,7 +1,5 @@
-view: anl_costbkng {
-  sql_table_name: `sap-cortex-391114.SAP_CDC_PROCESSED_FP.anl_cost-bkng` ;;
-  label: "Booking"
-
+view: anl_costbkng_700 {
+  sql_table_name: `sap-cortex-391114.SAP_CDC_PROCESSED_FP.anl_cost-bkng_700` ;;
 
   dimension: agrmnt_num {
     type: string
@@ -17,7 +15,6 @@ view: anl_costbkng {
   }
   dimension: busi_unit {
     type: string
-    #primary_key: yes
     sql: ${TABLE}.busi_unit ;;
   }
   dimension: busi_unit_desc {
@@ -26,12 +23,12 @@ view: anl_costbkng {
   }
   dimension_group: cmtd_dlvry_dt {
     type: time
-    timeframes: [raw, time, date, week, month, quarter,  year]
+    timeframes: [raw, time, date, week, month, quarter, year]
     sql: ${TABLE}.cmtd_dlvry_dt ;;
   }
   dimension_group: cnfrmd_dlvry_dt {
     type: time
-    timeframes: [raw, time, date, week, month, quarter, year,fiscal_year, fiscal_quarter, fiscal_month_num, month_name]
+    timeframes: [raw, time, date, week, month, quarter,fiscal_quarter, year]
     sql: ${TABLE}.cnfrmd_dlvry_dt ;;
   }
   dimension: co_cd {
@@ -44,17 +41,9 @@ view: anl_costbkng {
   }
   dimension_group: creatd_dttm {
     type: time
-    timeframes: [raw, time, date, week, month, quarter,fiscal_quarter,month_name, year]
+    timeframes: [raw, time, date, week, month, quarter,fiscal_quarter, year]
     sql: ${TABLE}.creatd_dttm ;;
   }
-
-
-  dimension: qtr_join {
-    hidden: yes
-    sql:SUBSTRING(CAST(${creatd_dttm_date} AS string), 1, 7) ;;
-  }
-
-
   dimension: cum_cnfrmd_qty {
     type: number
     sql: ${TABLE}.cum_cnfrmd_qty ;;
@@ -100,23 +89,9 @@ view: anl_costbkng {
     sql: ${TABLE}.dlvry_reltd_bllng_stat_cd ;;
   }
   dimension: doc_id {
-    #primary_key: yes
     type: string
     sql: ${TABLE}.doc_id ;;
   }
-
-  dimension: primary_key {
-    primary_key: yes
-    hidden: yes
-    type: string
-    sql: CONCAT(${doc_id}, '-' ,${itm_nbr}) ;;
-  }
-
-  # dimension: Series_id {
-  #   type: string
-  #   sql: CONCAT(${prod_line}, '-' ,${ra_fbu}, '-' ,${sls_region}) ;;
-  # }
-
   dimension: frt_chrg_in_usd_at_p_rate {
     type: number
     sql: ${TABLE}.frt_chrg_in_usd_at_p_rate ;;
@@ -190,7 +165,7 @@ view: anl_costbkng {
   }
   dimension_group: matl_avail_req_dt {
     type: time
-    timeframes: [raw, time, date, week, month, quarter,fiscal_quarter,month_name, year]
+    timeframes: [raw, time, date, week, month, quarter, year]
     sql: ${TABLE}.matl_avail_req_dt ;;
   }
   dimension: matl_base_uom {
@@ -227,7 +202,7 @@ view: anl_costbkng {
   }
   dimension_group: ord_itm_creatd_dt {
     type: time
-    timeframes: [raw, time, date, week, month, quarter,fiscal_quarter,month_name, year]
+    timeframes: [raw, time, date, week, month, quarter, year]
     sql: ${TABLE}.ord_itm_creatd_dt ;;
   }
   dimension: ord_itm_dlvry_blkd_cd {
@@ -248,7 +223,7 @@ view: anl_costbkng {
   }
   dimension_group: ord_itm_lst_goods_iss_dt {
     type: time
-    timeframes: [raw, time, date, week, month, quarter,fiscal_quarter, month_name, year]
+    timeframes: [raw, time, date, week, month, quarter,fiscal_quarter, year]
     sql: ${TABLE}.ord_itm_lst_goods_iss_dt ;;
   }
   dimension_group: ord_itm_matl_avail_dt {
@@ -266,7 +241,7 @@ view: anl_costbkng {
   }
   dimension_group: ord_itm_plnd_goods_iss_dt {
     type: time
-    timeframes: [raw, time, date, week, month, quarter,fiscal_quarter, month_name, year]
+    timeframes: [raw, time, date, week, month, quarter, year]
     sql: ${TABLE}.ord_itm_plnd_goods_iss_dt ;;
   }
   dimension: ord_itm_rjctn_rsn_cd {
@@ -293,6 +268,12 @@ view: anl_costbkng {
     type: string
     sql: ${TABLE}.partl_dlvry_grp_ind ;;
   }
+
+  dimension: qtr_join {
+    hidden: yes
+    sql:SUBSTRING(CAST(${creatd_dttm_date} AS string), 1, 7) ;;
+  }
+
   dimension: plt_cd {
     type: string
     sql: ${TABLE}.plt_cd ;;
@@ -339,7 +320,7 @@ view: anl_costbkng {
   }
   dimension_group: reqstd_dlvry_dt {
     type: time
-    timeframes: [raw, time, date, week, month, quarter,fiscal_quarter, month_name, year]
+    timeframes: [raw, time, date, week, month, quarter, year]
     sql: ${TABLE}.reqstd_dlvry_dt ;;
   }
   dimension: sap_svc_contr_no {
@@ -404,7 +385,7 @@ view: anl_costbkng {
   }
   dimension_group: sls_ord_ln_itm_reqstd_dlvry_dte {
     type: time
-    timeframes: [raw, time, date, week, month, quarter,fiscal_quarter,month_name, year]
+    timeframes: [raw, time, date, week, month, quarter, year]
     sql: ${TABLE}.sls_ord_ln_itm_reqstd_dlvry_dte ;;
   }
   dimension: sls_org {
@@ -415,6 +396,14 @@ view: anl_costbkng {
     type: string
     sql: ${TABLE}.sls_uom ;;
   }
+
+  dimension: primary_key {
+    primary_key: yes
+    hidden: yes
+    type: string
+    sql: CONCAT(${doc_id}, '-' ,${itm_nbr}) ;;
+  }
+
   dimension: sold_to_bp_addr_id {
     type: number
     sql: ${TABLE}.sold_to_bp_addr_id ;;
@@ -554,10 +543,10 @@ view: anl_costbkng {
     description: "Orders Conversion logic"
     type: number
     sql: (SELECT
-    CASE
-        WHEN ${CurrentQTR} >= ${creatd_dttm_fiscal_quarter} AND ${ord_itm_lst_goods_iss_dt_fiscal_quarter} = ${creatd_dttm_fiscal_quarter}
-        THEN ${gross_orders} - ${open_qty_glbl_m_net_val}
-        ELSE 0 END) ;;
+          CASE
+              WHEN ${CurrentQTR} >= ${creatd_dttm_fiscal_quarter} AND ${ord_itm_lst_goods_iss_dt_fiscal_quarter} = ${creatd_dttm_fiscal_quarter}
+              THEN ${gross_orders} - ${open_qty_glbl_m_net_val}
+              ELSE 0 END) ;;
   }
 
   dimension: Conversion2 {
@@ -570,7 +559,7 @@ view: anl_costbkng {
               ELSE 0 END) ;;
   }
 
-    dimension: Conversion {
+  dimension: Conversion {
     description: "Orders Conversion logic"
     type: number
     sql: ${Conversion1}+${Conversion2} ;;
@@ -753,5 +742,7 @@ view: anl_costbkng {
     value_format_name: percent_2
     sql: ${OC_3Qtr_sum}/nullif(${gross_orders_actuals_sum}, 0);;
   }
-
+  measure: count {
+    type: count
+  }
 }
