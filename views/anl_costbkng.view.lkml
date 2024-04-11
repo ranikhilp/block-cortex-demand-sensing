@@ -595,17 +595,6 @@ view: anl_costbkng {
     sql: ${Conversion_sum}/nullif(${gross_orders_actuals_sum}, 0);;
   }
 
-# dimension: net_backlog_test {
-#   type: number
-#   value_format_name: usd
-#   sql: ${open_qty_glbl_m_net_val} - ${sfsac_manual.sfsac_manual} ;;
-# }
-
-
-# measure: net_backlog_test_sum {
-#   type: sum
-#   sql: ${net_backlog_test} ;;
-# }
 
 
 #Gross Backlog
