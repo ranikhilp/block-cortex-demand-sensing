@@ -1,6 +1,6 @@
 connection: "looker-cortex-sa"
 
-include: "/views/*.view.lkml"                # include all views in the views/ folder in this project
+include: "/Dev/*.view.lkml"                # include all views in the views/ folder in this project
 # include: "/**/*.view.lkml"                 # include all views in this project
 # include: "my_dashboard.dashboard.lookml"   # include a LookML dashboard called my_dashboard
 
@@ -35,14 +35,14 @@ explore: anl_costbkng {
   # }
 
 
-  join: gross_orders_manual {
-    relationship: one_to_many
-    type: inner
-    sql_on: ${gross_orders_manual.bu} = ${ra_gds_datamatl.FBU}
-    and ${gross_orders_manual.region} = ${anl_costbkng.sls_region}
-    AND ${anl_costbkng.qtr_join} = ${gross_orders_manual.qtr_join};;
+  # join: gross_orders_manual {
+  #   relationship: one_to_many
+  #   type: inner
+  #   sql_on: ${gross_orders_manual.bu} = ${ra_gds_datamatl.FBU}
+  #   and ${gross_orders_manual.region} = ${anl_costbkng.sls_region}
+  #   AND ${anl_costbkng.qtr_join} = ${gross_orders_manual.qtr_join};;
 
-  }
+  # }
 
 
   join: sfsac_manual {
@@ -65,13 +65,13 @@ explore: anl_costbkng {
       AND  ${sfsac_manual_month.date_month} = ${anl_costbkng.creatd_dttm_month} ;;
    }
 
-  join: ra_dmi {
-    relationship: one_to_many
-    type: inner
-    sql_on: ${ra_gds_datamatl.FBU} = ${ra_dmi.fbu}
-      AND ${anl_costbkng.sls_region} = ${ra_dmi.region}
-      AND  ${ra_dmi.week_start_week} = ${anl_costbkng.creatd_dttm_week} ;;
-  }
+  # join: ra_dmi {
+  #   relationship: one_to_many
+  #   type: inner
+  #   sql_on: ${ra_gds_datamatl.FBU} = ${ra_dmi.fbu}
+  #     AND ${anl_costbkng.sls_region} = ${ra_dmi.region}
+  #     AND  ${ra_dmi.week_start_week} = ${anl_costbkng.creatd_dttm_week} ;;
+  # }
 
   #INTERCOMPANY FILTER
   always_filter: {

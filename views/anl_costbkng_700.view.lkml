@@ -603,19 +603,19 @@ view: anl_costbkng_700 {
     sql: ${open_qty_glbl_m_net_val} ;;
   }
 
-#Net Backlog
-  dimension: net_backlog{
-    type: number
-    value_format_name: usd
-    sql: ${open_qty_glbl_m_net_val} + ${sfsac_manual.sfsac_manual} ;;
-  }
+# #Net Backlog
+#   dimension: net_backlog{
+#     type: number
+#     value_format_name: usd
+#     sql: ${open_qty_glbl_m_net_val} + ${sfsac_manual.sfsac_manual} ;;
+#   }
 
-#Net Backlog Sum
-  measure: net_backlog_sum{
-    type: sum
-    value_format_name: usd
-    sql: ${net_backlog} ;;
-  }
+# #Net Backlog Sum
+#   measure: net_backlog_sum{
+#     type: sum
+#     value_format_name: usd
+#     sql: ${net_backlog} ;;
+#   }
 
   #Gross Sales
   dimension: gross_sales {
@@ -627,11 +627,11 @@ view: anl_costbkng_700 {
     type: sum
     sql: ${gross_sales} ;;
   }
-  #Net Sales
-  measure: Net_sales {
-    type: sum
-    sql: ${gross_sales} + ${sfsac_manual.sfsac_manual} ;;
-  }
+  # #Net Sales
+  # measure: Net_sales {
+  #   type: sum
+  #   sql: ${gross_sales} + ${sfsac_manual.sfsac_manual} ;;
+  # }
 
   ###################################1 Quarter out###################################################################
   # dimension: ReferencePeriod {

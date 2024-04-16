@@ -26,31 +26,31 @@ explore: anl_costbkng_700 {
   }
 
 
-  join: gross_orders_manual {
-    relationship: one_to_many
-    type: inner
-    sql_on: ${gross_orders_manual.bu} = ${ra_gds_datamatl_700.FBU}
-          and ${gross_orders_manual.region} = ${anl_costbkng_700.sls_region}
-          AND ${anl_costbkng_700.qtr_join} = ${gross_orders_manual.qtr_join};;
+  # join: gross_orders_manual {
+  #   relationship: one_to_many
+  #   type: inner
+  #   sql_on: ${gross_orders_manual.bu} = ${ra_gds_datamatl_700.FBU}
+  #         and ${gross_orders_manual.region} = ${anl_costbkng_700.sls_region}
+  #         AND ${anl_costbkng_700.qtr_join} = ${gross_orders_manual.qtr_join};;
 
-  }
+  # }
 
 
-  join: sfsac_manual {
-    relationship: one_to_many
-    type: full_outer
-    sql_on: ${ra_gds_datamatl_700.FBU} = ${sfsac_manual.bu}
-      AND ${anl_costbkng_700.sls_region} = ${sfsac_manual.region}
-      AND  ${sfsac_manual.qtr_join} = ${anl_costbkng_700.qtr_join} ;;
-  }
+  # join: sfsac_manual {
+  #   relationship: one_to_many
+  #   type: full_outer
+  #   sql_on: ${ra_gds_datamatl_700.FBU} = ${sfsac_manual.bu}
+  #     AND ${anl_costbkng_700.sls_region} = ${sfsac_manual.region}
+  #     AND  ${sfsac_manual.qtr_join} = ${anl_costbkng_700.qtr_join} ;;
+  # }
 
-  join: sfsac_manual_month {
-    relationship: one_to_many
-    type: inner
-    sql_on: ${ra_gds_datamatl_700.FBU} = ${sfsac_manual.bu}
-      AND ${anl_costbkng_700.sls_region} = ${sfsac_manual.region}
-      AND  ${sfsac_manual_month.date_month} = ${anl_costbkng_700.creatd_dttm_month} ;;
-  }
+  # join: sfsac_manual_month {
+  #   relationship: one_to_many
+  #   type: inner
+  #   sql_on: ${ra_gds_datamatl_700.FBU} = ${sfsac_manual.bu}
+  #     AND ${anl_costbkng_700.sls_region} = ${sfsac_manual.region}
+  #     AND  ${sfsac_manual_month.date_month} = ${anl_costbkng_700.creatd_dttm_month} ;;
+  # }
 
   join: ra_dmi {
     relationship: one_to_many
