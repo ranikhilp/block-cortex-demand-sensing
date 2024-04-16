@@ -52,13 +52,13 @@ explore: anl_costbkng_700 {
   #     AND  ${sfsac_manual_month.date_month} = ${anl_costbkng_700.creatd_dttm_month} ;;
   # }
 
-  join: ra_dmi {
-    relationship: one_to_many
-    type: inner
-    sql_on: ${ra_gds_datamatl_700.FBU} = ${ra_dmi.fbu}
-      AND ${anl_costbkng_700.sls_region} = ${ra_dmi.region}
-      AND  ${ra_dmi.week_start_week} = ${anl_costbkng_700.creatd_dttm_week} ;;
-  }
+  # join: ra_dmi {
+  #   relationship: one_to_many
+  #   type: inner
+  #   sql_on: ${ra_gds_datamatl_700.FBU} = ${ra_dmi.fbu}
+  #     AND ${anl_costbkng_700.sls_region} = ${ra_dmi.region}
+  #     AND  ${ra_dmi.week_start_week} = ${anl_costbkng_700.creatd_dttm_week} ;;
+  # }
 
   #INTERCOMPANY FILTER
   always_filter: {
