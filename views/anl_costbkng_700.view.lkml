@@ -269,10 +269,10 @@ view: anl_costbkng_700 {
     sql: ${TABLE}.partl_dlvry_grp_ind ;;
   }
 
-  dimension: qtr_join {
-    hidden: yes
-    sql:SUBSTRING(CAST(${creatd_dttm_date} AS string), 1, 7) ;;
-  }
+  # dimension: qtr_join {
+  #   hidden: yes
+  #   sql:SUBSTRING(CAST(${creatd_dttm_date} AS string), 1, 7) ;;
+  # }
 
   dimension: plt_cd {
     type: string
