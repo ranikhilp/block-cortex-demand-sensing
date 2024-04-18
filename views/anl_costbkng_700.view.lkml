@@ -180,6 +180,14 @@ view: anl_costbkng_700 {
     type: number
     sql: ${TABLE}.open_qty_glbl_m_net_val ;;
   }
+
+  #Added a dimension for open orders p_net value
+  dimension: open_qty_glbl_p_net_val {
+    type: number
+    sql: (${anl_busi_lgstcscurr_p_conv_adj_700.exch_rate} * ${glbl_p_net_val})/${itm_cum_bkd_qty} ;;
+  }
+
+
   dimension: open_qty_net_val_in_trans_crncy {
     type: number
     sql: ${TABLE}.open_qty_net_val_in_trans_crncy ;;
@@ -507,44 +515,36 @@ view: anl_costbkng_700 {
     sql: (SELECT CURRENT_TIMESTAMP) ;;
   }
 
-#calculate gross orders
+# calculate gross orders m_rate and p_rate
   dimension: is_m_val_country {
     description: "Is Country Turkey or Argentina?"
     type: yesno
     sql: ${trans_crncy_cd} IN ('TRY', 'ARS', 'VES', 'VEB', 'VEF') ;; #validate V series
   }
 
-  #original
-  # dimension: gross_orders {
-  #   type: number
-  #   sql: CASE WHEN ${is_m_val_country} THEN ${glbl_m_net_val} ELSE ${glbl_p_net_val} END ;;
-  # }
-
-  #for testing
   dimension: gross_orders {
     type: number
-    sql: CASE WHEN ${is_m_val_country} THEN ${glbl_m_net_val} ELSE ${glbl_m_net_val} END ;;
+    sql: CASE WHEN ${is_m_val_country} THEN ${glbl_m_net_val} ELSE ${glbl_p_net_val} END ;;
   }
 
   # calculate gross orders sum
-  measure: gross_orders_actuals_sum{
+  measure: gross_orders_sum{
     type: sum
     sql: ${gross_orders} ;;
   }
 
-  # dimension: ord_conv_diff {
-  #   type: number
-  #   sql: ${gross_orders} - ${open_qty_glbl_m_net_val} ;;
-  # }
+# calculate gross backlog m_rate and p_rate
 
+  dimension: gross_backlog {
+    type: number
+    sql: CASE WHEN ${is_m_val_country} THEN ${open_qty_glbl_m_net_val} ELSE ${open_qty_glbl_p_net_val} END ;;
+  }
 
-  # measure: ord_conv_diff_sum{
-  #   type: sum
-  #   sql: ${ord_conv_diff} ;;
-  # }
-
-
-
+  # calculate gross orders sum
+  measure: gross_backlog_sum{
+    type: sum
+    sql: ${gross_backlog} ;;
+  }
   # dimension: Conversion1 {
   #   description: "Orders Conversion logic"
   #   type: number
@@ -581,10 +581,11 @@ view: anl_costbkng_700 {
     type: number
     sql: (SELECT
           CASE
-              WHEN ${currentMonth} = ${creatd_dttm_fiscal_month_num} AND ${itm_open_qty} > 0 AND ${cnfrmd_dlvry_dt_fiscal_month_num} <= ${creatd_dttm_fiscal_month_num}
+              WHEN ${currentMonth} = ${creatd_dttm_fiscal_month_num} AND ${itm_open_qty} > 0
               THEN ${open_qty_glbl_m_net_val}
               ELSE 0 END) ;;
   }
+  # AND ${cnfrmd_dlvry_dt_fiscal_month_num} <= ${creatd_dttm_fiscal_month_num} --from line 584
 
   dimension: Conversion {
     description: "Orders Conversion logic"
@@ -608,7 +609,7 @@ view: anl_costbkng_700 {
   measure: conversion_rate{
     type: number
     value_format_name: percent_2
-    sql: ${Conversion_sum}/nullif(${gross_orders_actuals_sum}, 0);;
+    sql: ${Conversion_sum}/nullif(${gross_orders_sum}, 0);;
   }
 
 # dimension: net_backlog_test {
@@ -623,12 +624,6 @@ view: anl_costbkng_700 {
 #   sql: ${net_backlog_test} ;;
 # }
 
-
-#Gross Backlog
-  measure: gross_backlog{
-    type: sum
-    sql: ${open_qty_glbl_m_net_val} ;;
-  }
 
 # #Net Backlog
 #   dimension: net_backlog{
