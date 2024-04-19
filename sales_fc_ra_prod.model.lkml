@@ -26,9 +26,9 @@ explore: anl_costbkng_700 {
   }
 
   join: anl_busi_lgstcscurr_p_conv_adj_700 {
-    relationship: many_to_many
-    type: inner
-    sql_on: ${anl_busi_lgstcscurr_p_conv_adj_700.orig_crncy_cd} = ${anl_costbkng_700.trans_crncy_cd};;
+    relationship: one_to_one
+    type: left_outer
+    sql_on:  ${anl_costbkng_700.trans_crncy_cd} = ${anl_busi_lgstcscurr_p_conv_adj_700.orig_crncy_cd} ;;
   }
 
   # join: ra_dmi {

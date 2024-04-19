@@ -182,10 +182,14 @@ view: anl_costbkng_700 {
   }
 
   #Added a dimension for open orders p_net value
-  dimension: open_qty_glbl_p_net_val {
+  dimension: open_qty_glbl_p_net_val{
     type: number
-    sql: (${anl_busi_lgstcscurr_p_conv_adj_700.exch_rate} * ${glbl_p_net_val})/${itm_cum_bkd_qty} ;;
+    sql: ((ifnull(${anl_busi_lgstcscurr_p_conv_adj_700.exch_rate},1) * ${glbl_p_net_val})/${itm_cum_bkd_qty}) ;;
   }
+  # dimension: open{
+  #   type: number
+  #   sql: ifnull(${anl_busi_lgstcscurr_p_conv_adj_700.exch_rate},1);;
+  # }
 
 
   dimension: open_qty_net_val_in_trans_crncy {
@@ -519,7 +523,7 @@ view: anl_costbkng_700 {
   dimension: is_m_val_country {
     description: "Is Country Turkey or Argentina?"
     type: yesno
-    sql: ${trans_crncy_cd} IN ('TRY', 'ARS', 'VES', 'VEB', 'VEF') ;; #validate V series
+    sql: ${trans_crncy_cd} IN ('TRY', 'VES', 'VEB', 'VEF') ;; #validate V series
   }
 
   dimension: gross_orders {
@@ -540,7 +544,7 @@ view: anl_costbkng_700 {
     sql: CASE WHEN ${is_m_val_country} THEN ${open_qty_glbl_m_net_val} ELSE ${open_qty_glbl_p_net_val} END ;;
   }
 
-  # calculate gross orders sum
+  # calculate gross backlog sum
   measure: gross_backlog_sum{
     type: sum
     sql: ${gross_backlog} ;;
@@ -612,32 +616,7 @@ view: anl_costbkng_700 {
     sql: ${Conversion_sum}/nullif(${gross_orders_sum}, 0);;
   }
 
-# dimension: net_backlog_test {
-#   type: number
-#   value_format_name: usd
-#   sql: ${open_qty_glbl_m_net_val} - ${sfsac_manual.sfsac_manual} ;;
-# }
 
-
-# measure: net_backlog_test_sum {
-#   type: sum
-#   sql: ${net_backlog_test} ;;
-# }
-
-
-# #Net Backlog
-#   dimension: net_backlog{
-#     type: number
-#     value_format_name: usd
-#     sql: ${open_qty_glbl_m_net_val} + ${sfsac_manual.sfsac_manual} ;;
-#   }
-
-# #Net Backlog Sum
-#   measure: net_backlog_sum{
-#     type: sum
-#     value_format_name: usd
-#     sql: ${net_backlog} ;;
-#   }
 
   #Gross Sales
   dimension: gross_sales {
