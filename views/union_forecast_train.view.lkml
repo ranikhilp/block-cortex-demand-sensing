@@ -2,7 +2,7 @@
 view: union_forecast_train {
   derived_table: {
     sql: SELECT *
-          FROM `sap-cortex-391114.SAP_CDC_PROCESSED_FP.amount_train`
+          FROM `sap-cortex-391114.SAP_CDC_PROCESSED_FP.amount_final`
         UNION ALL
         SELECT bu_reg, forecast_value, CAST(forecast_timestamp AS DATE)
           FROM `sap-cortex-391114.REPORTING_FP.value_forecast`
@@ -25,9 +25,10 @@ view: union_forecast_train {
     sql: ${TABLE}.gross_value ;;
   }
 
-  dimension: creatd_dttm {
-    type: date
-    datatype: date
+
+  dimension_group: creatd_dttm {
+    type: time
+    timeframes: [raw, time, date, week, month, quarter, year]
     sql: ${TABLE}.creatd_dttm ;;
   }
 
@@ -35,7 +36,7 @@ view: union_forecast_train {
     fields: [
         bu_reg,
   gross_value,
-  creatd_dttm
+  creatd_dttm.month
     ]
   }
 }
