@@ -42,8 +42,11 @@ explore: anl_costbkng_700 {
   #INTERCOMPANY FILTER
   always_filter: {
     filters: [anl_costbkng_700.sls_doc_type: "-ZEOR,- ZPLS, -ZIPO",
-      anl_costbkng_700.sched_line_cat: "CP , CN , ZN",anl_costbkng_700.plt_cd: "-8% , -9%",
-      anl_costbkng_700.itm_rjctn_stat:"null , EMPTY , A , B"]
+      anl_costbkng_700.sched_line_cat: "CP , CN , ZN",
+      anl_costbkng_700.plt_cd: "-8% , -9%",
+      anl_costbkng_700.itm_rjctn_stat:"null , EMPTY , A , B",
+      anl_costbkng_700.creatd_dttm_year:  "after 2020" ]
+
 
   }
 }

@@ -575,8 +575,8 @@ view: anl_costbkng_700 {
     type: number
     sql: (SELECT
           CASE
-              WHEN ${currentMonth} >= ${creatd_dttm_fiscal_month_num} AND ${ord_itm_lst_goods_iss_dt_fiscal_month_num} = ${creatd_dttm_fiscal_month_num}
-              THEN ${gross_orders} - ${open_qty_glbl_m_net_val}
+              WHEN ${ord_itm_lst_goods_iss_dt_fiscal_month_num} = ${creatd_dttm_fiscal_month_num}
+              THEN ${gross_orders} - ${gross_backlog}
               ELSE 0 END) ;;
   }
 
@@ -585,12 +585,13 @@ view: anl_costbkng_700 {
     type: number
     sql: (SELECT
           CASE
-              WHEN ${currentMonth} = ${creatd_dttm_fiscal_month_num} AND ${itm_open_qty} > 0
-              THEN ${open_qty_glbl_m_net_val}
+              WHEN (${currentMonth} != ${cnfrmd_dlvry_dt_fiscal_month_num} )
+              AND ${itm_open_qty} > 0
+              THEN ${gross_backlog}
               ELSE 0 END) ;;
   }
   # AND ${cnfrmd_dlvry_dt_fiscal_month_num} <= ${creatd_dttm_fiscal_month_num} --from line 584
-
+# or ${currentMonth} > ${cnfrmd_dlvry_dt_fiscal_month_num}
   dimension: Conversion {
     description: "Orders Conversion logic"
     type: number
@@ -604,18 +605,20 @@ view: anl_costbkng_700 {
     sql: ${Conversion} ;;
   }
 
-
-
-  # measure: conversion_rate{
-  #   type: percent_of_total
-  #   sql: ${Conversion_sum}/${gross_orders_sum}  ;;
-  # }
   measure: conversion_rate{
     type: number
     value_format_name: percent_2
     sql: ${Conversion_sum}/nullif(${gross_orders_sum}, 0);;
   }
-
+measure: convo_temp {
+  type: sum
+  sql: ${gross_orders}-${gross_backlog} ;;
+}
+  measure: convo_temp_rate{
+    type: number
+    value_format_name: percent_2
+    sql: ${convo_temp}/nullif(${gross_orders_sum}, 0);;
+  }
 
 
   #Gross Sales
