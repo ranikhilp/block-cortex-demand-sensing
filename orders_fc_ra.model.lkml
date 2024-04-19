@@ -20,3 +20,5 @@ explore: amount_train  {
   #   sql_on: ${users.id} = ${orders.user_id} ;;
   # }
 }
+
+explore: union_forecast_train {}
