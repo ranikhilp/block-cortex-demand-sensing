@@ -3,24 +3,11 @@ view: fc_ul {
 
 
 
-  dimension: _actual {
-    hidden: yes
-    type: number
+  measure: actual  {
+    type: sum
     sql: ${TABLE}.actual ;;
   }
 
-  measure: actual  {
-    type: sum
-    sql:
-      CASE
-        WHEN ${creatd_dttm_month} = '2024-02' THEN NULL
-        WHEN ${creatd_dttm_month} = '2024-03' THEN NULL
-        ELSE ${_actual}
-      END
-    ;;
-
-
-  }
 
   dimension: bu_reg {
     type: string
