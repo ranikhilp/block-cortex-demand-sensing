@@ -23,6 +23,7 @@ view: fc_ul {
 
   measure: forecast {
     type: sum
+    label: "Forecast (90% Confidence)"
     value_format_name: usd
     sql: ${TABLE}.forecast ;;
 
