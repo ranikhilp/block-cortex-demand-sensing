@@ -15,6 +15,8 @@ explore: amount_train  {
   #   sql_on: ${orders.id} = ${order_items.order_id} ;;
   # }
 
+
+
   # join: users {
   #   relationship: many_to_one
   #   sql_on: ${users.id} = ${orders.user_id} ;;
@@ -24,3 +26,7 @@ explore: amount_train  {
 explore: union_forecast_train {}
 
 explore: fc_ul {}
+
+explore: ra_orders_dmi_na {}
+
+explore: actuals_fcst_multivariate {}
