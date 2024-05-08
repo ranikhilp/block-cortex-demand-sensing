@@ -9,16 +9,16 @@ view: actuals_fcst_multivariate {
     type: string
     sql: ${TABLE}.BU_RGN ;;
   }
-  dimension: expect_ra_order {
-    type: number
+  measure: expect_ra_order {
+    type: sum
     sql: ${TABLE}.expect_ra_order ;;
   }
-  dimension: forecast_value {
-    type: number
+  measure: forecast_value {
+    type: sum
     sql: ${TABLE}.forecast_value ;;
   }
-  dimension: gross_orders {
-    type: number
+  measure: gross_orders {
+    type: sum
     sql: ${TABLE}.gross_orders ;;
   }
   dimension_group: month {
@@ -28,20 +28,20 @@ view: actuals_fcst_multivariate {
     datatype: date
     sql: ${TABLE}.month ;;
   }
-  dimension: prediction_lb {
-    type: number
+  measure: prediction_lb {
+    type: sum
     sql: ${TABLE}.prediction_lb ;;
   }
-  dimension: prediction_up {
-    type: number
+  measure: prediction_up {
+    type: sum
     sql: ${TABLE}.prediction_up ;;
   }
-  dimension: total_inventory {
-    type: number
+  measure: total_inventory {
+    type: sum
     sql: ${TABLE}.total_inventory ;;
   }
-  dimension: total_new_demand {
-    type: number
+  measure: total_new_demand {
+    type: sum
     sql: ${TABLE}.total_new_demand ;;
   }
   measure: count {
