@@ -37,3 +37,16 @@ explore: ra_order_na_actuals_prod_nonothers{}
 explore: ra_orders_dmi_na {}
 
 explore: actuals_fcst_multivariate {}
+
+explore: ra_plot_univariate_all_bu_rgn {}
+
+explore: dmi_xreg_all_bu_region_explainfcst {
+  label: "Orders+DMI"
+  join: ra_orders_all_bu_regions_plus_dmi_3monthslagged {
+    relationship: one_to_one
+    sql_on: ${dmi_xreg_all_bu_region_explainfcst.bu_rgn}=  ${ra_orders_all_bu_regions_plus_dmi_3monthslagged.bu_rgn}
+        and ${dmi_xreg_all_bu_region_explainfcst.time_series_timestamp_month} = ${ra_orders_all_bu_regions_plus_dmi_3monthslagged.month_month};;
+  }
+}
+
+explore: actualsvs_forecast {}
