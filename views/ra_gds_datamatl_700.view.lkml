@@ -1,5 +1,6 @@
 view: ra_gds_datamatl_700 {
   sql_table_name: `sap-cortex-391114.SAP_CDC_PROCESSED_FP.ra_gds_data-matl_700` ;;
+  label: "Material"
 
   dimension: base_uom {
     type: string

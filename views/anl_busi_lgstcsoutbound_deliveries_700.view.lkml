@@ -1,6 +1,6 @@
 view: anl_busi_lgstcsoutbound_deliveries_700 {
   sql_table_name: `sap-cortex-391114.SAP_CDC_PROCESSED_FP.anl_busi_lgstcs-outbound_deliveries_700` ;;
-
+  label: "Outbound Deliveries"
   dimension_group: actl_post_goods_iss_dte {
     type: time
     timeframes: [raw, time, date, week, month, quarter, year]

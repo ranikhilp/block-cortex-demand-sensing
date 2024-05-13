@@ -45,7 +45,8 @@ explore: anl_costbkng_700 {
       anl_costbkng_700.sched_line_cat: "CP , CN , ZN",
       anl_costbkng_700.plt_cd: "-8% , -9%",
       anl_costbkng_700.itm_rjctn_stat:"null , EMPTY , A , B",
-      anl_costbkng_700.creatd_dttm_year:  "after 2020" ]
+      anl_costbkng_700.creatd_dttm_date: "2020/01/01 to 2024/03/31"
+     ]
 
 
   }

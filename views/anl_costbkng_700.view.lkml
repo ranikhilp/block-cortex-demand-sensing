@@ -1,5 +1,6 @@
 view: anl_costbkng_700 {
   sql_table_name: `sap-cortex-391114.SAP_CDC_PROCESSED_FP.anl_cost-bkng_700` ;;
+  label: "Booking"
 
   dimension: agrmnt_num {
     type: string
@@ -610,14 +611,19 @@ view: anl_costbkng_700 {
     value_format_name: percent_2
     sql: ${Conversion_sum}/nullif(${gross_orders_sum}, 0);;
   }
-measure: convo_temp {
+
+  dimension: convo_temp {
+    type: number
+    sql: ${gross_orders} - ${gross_backlog} ;;
+  }
+measure: convo_temp_sum {
   type: sum
-  sql: ${gross_orders}-${gross_backlog} ;;
+  sql: ${convo_temp};;
 }
   measure: convo_temp_rate{
     type: number
     value_format_name: percent_2
-    sql: ${convo_temp}/nullif(${gross_orders_sum}, 0);;
+    sql: ${convo_temp_sum}/nullif(${gross_orders_sum}, 0);;
   }
 
 
@@ -625,6 +631,15 @@ measure: convo_temp {
   dimension: gross_sales {
     type: number
     sql: ${open_qty_glbl_m_net_val} + ${Conversion} ;;
+  }
+  dimension: gross_sales_temp {
+    type: number
+    sql: ${gross_backlog} + ${convo_temp} ;;
+  }
+
+  measure: gross_sales_temp_sum {
+    type: sum
+    sql: ${gross_sales_temp} ;;
   }
   #Gross Sales sum
   measure: gross_sales_sum {

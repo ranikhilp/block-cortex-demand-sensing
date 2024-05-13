@@ -1,6 +1,6 @@
 view: anl_ra_gdsmatl_plant_700 {
   sql_table_name: `sap-cortex-391114.SAP_CDC_PROCESSED_FP.anl_ra_gds-matl_plant_700` ;;
-
+  label: "Matl Plant"
   dimension: assy_part_scrp_pct {
     type: number
     sql: ${TABLE}.assy_part_scrp_pct ;;
