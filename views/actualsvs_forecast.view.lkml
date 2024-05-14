@@ -44,9 +44,25 @@ view: actualsvs_forecast {
     datatype: date
     sql: ${TABLE}.forecast_timestamp ;;
   }
+  # dimension: region {
+  #   type: string
+  #   sql: ${TABLE}.Region ;;
+  # }
+
+  #Case when col A like ‘%ABC%’ then col A
   dimension: region {
-    type: string
-    sql: ${TABLE}.Region ;;
+    case: {
+      when: {
+        sql: ${bu_rgn} like 'NA%' ;;
+        label: "NA"
+      }
+      when: {
+        sql: ${bu_rgn} like 'EMEA%' ;;
+        label: "EMEA"
+      }
+      else: "other"
+    }
+    alpha_sort:  yes
   }
   measure: count {
     type: count
