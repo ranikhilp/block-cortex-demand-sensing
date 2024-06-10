@@ -49,4 +49,18 @@ explore: dmi_xreg_all_bu_region_explainfcst {
   }
 }
 
+explore: dmi_xreg_all_bu_region_explainfcsttst {
+  label: "Orders+DMI+new"
+  join: ra_orders_all_bu_regions_plus_dmi_3monthslagged {
+    relationship: one_to_one
+    sql_on: ${dmi_xreg_all_bu_region_explainfcsttst.bu_rgn}=  ${ra_orders_all_bu_regions_plus_dmi_3monthslagged.bu_rgn}
+      and ${dmi_xreg_all_bu_region_explainfcsttst.time_series_timestamp_month} = ${ra_orders_all_bu_regions_plus_dmi_3monthslagged.month_month};;
+  }
+}
+
 explore: actualsvs_forecast {}
+explore: april_2024_actuals {}
+explore: pmi_4m_xreg_all_bu_region_explainfcst {}
+explore: act_vfcst_pmi_apac {}
+explore: la_best_model_explainfcst {}
+explore: actvsfc_la {}
