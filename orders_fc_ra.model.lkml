@@ -64,3 +64,7 @@ explore: pmi_4m_xreg_all_bu_region_explainfcst {}
 explore: act_vfcst_pmi_apac {}
 explore: la_best_model_explainfcst {}
 explore: actvsfc_la {}
+explore: actvsfctemea {}
+explore: emea_best_model_explainfcst {}
+explore: actvsfcapac {}
+explore: apac_best_model_explainfcst {}
